@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body, nav {
+  background-color: #F8F8FF;
+  transition: all .3s;
+}
+
+* {font-family: 'Inter', sans-serif;}
+nav, header {
+  position: sticky;
+  top: 0;
+}
+
+#logo-name{
+  /* text-shadow: rgba(2,113,231,1) 0px 0px 12px; */
+  font-family: "Protest Guerrilla", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+#menus.slide-in {
+  animation-name: slideIn;
+  animation-duration: .3s;
+  animation-fill-mode: forwards;
+}
+
+#menus.slide-out {
+  animation-name: slideOut;
+  animation-duration: .3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideIn {
+  from {right: -400px}
+  to {right: 0px;}
+}
+
+@keyframes slideOut {
+  from {right: 0px}
+  to {right: -400px}
+}
+
+#accordion > p {margin: 0; padding: 0;}
+#accordion > p.open {
+  animation-name: slideDownOpen;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+}
+
+#accordion > p.close {
+  animation-name: slideUpClose;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideDownOpen {
+  from { max-height: 0; padding: 0;}
+  to { max-height: 200px; padding: 1rem;}
+}
+
+@keyframes slideUpClose {
+  from { max-height: 200px; padding: 1rem;}
+  to { max-height: 0; padding: 0}
+}
+
