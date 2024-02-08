@@ -4,6 +4,7 @@ import { ArrayContext } from "../App";
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { HiOutlineTrash } from "react-icons/hi";
+import { FaQuestion } from "react-icons/fa";
 
 const Manager = () => {
   const { classes, setClasses } = useContext(ArrayContext);
@@ -32,6 +33,10 @@ const Manager = () => {
         code={e.code}
         section={e.section}
         number={e.number}
+        professor={e.professor}
+        courseName={e.courseName}
+        startDate={e.startDate}
+        seats={e.availableSeats}
         isSelected={selectedEntries.includes(i)}
         onCheckboxChange={handleCheckboxChange}
       />
@@ -46,7 +51,7 @@ const Manager = () => {
       <div id="manager-container" className={`w-full flex flex-col items-center`}>
         <div
           id="grid-title"
-          className="flex gap-2 items-center text-center md:text-[.75rem] mb-4 bg-green rounded w-full"
+          className="flex gap-2 items-center text-center md:text-[.7rem] mb-4 bg-green rounded w-full"
         >
           <div className="flex justify-center items-center py-2 uppercase text-light font-bold flex-[1]">
             {allClassData.length === 0 ? (

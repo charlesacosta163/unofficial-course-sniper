@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { useEffect,useContext } from 'react'
 import Questions from './Questions'
 import Footer from './Footer'
 import { DarkContext } from '../App'
-import { useContext } from 'react'
 
 import { showBorder, buttonStyled, sectionWidth, headerText, wrapperWidth } from '../styles'
 import { Routes, Route, Link } from 'react-router-dom'

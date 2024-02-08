@@ -13,6 +13,7 @@ const Profile = () => {
                 <div>{e.code}</div>
                 <div>{e.section}</div>
                 <div>{e.number}</div>
+                <div>{e.professor}</div>
             </div>
         )
     })

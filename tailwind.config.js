@@ -34,9 +34,9 @@ export default {
 
 
       "bgLightMode": "#F8F8FF",
-      "bgDarkMode": "#010104",
+      "bgDarkMode": "#19191F",
       "fontDarkMode": "#EBE9FC",
-      "bgDarkSecondary": "#020024",
+      "bgDarkSecondary": "#251682",
       "bgDarkPrimary": "#3A31D8",
       "bgGrayBtn": "#40404F",
       "bgDarkFooter": "#0d0d11"

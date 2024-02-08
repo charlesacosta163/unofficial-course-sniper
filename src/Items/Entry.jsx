@@ -1,7 +1,9 @@
 import { DarkContext } from "../App";
 import { useContext } from "react";
+import { FaRegQuestionCircle } from "react-icons/fa";
 
-const Entry = ({ id, code, section, number, isSelected, onCheckboxChange }) => {
+
+const Entry = ({ id, code, number, professor, section, courseName, startDate, seats, isSelected, onCheckboxChange }) => {
     const {darkMode} = useContext(DarkContext)
     return (
         <div
@@ -22,7 +24,8 @@ const Entry = ({ id, code, section, number, isSelected, onCheckboxChange }) => {
             <div className="py-2 text-dark flex-[2]">{code}</div>
             <div className="py-2 text-dark flex-[2]">{section}</div>
             <div className="py-2 text-dark flex-[2]">{number}</div>
-            <div className="py-2 text-dark flex-[4]">John Doe</div>
+            <div className="py-2 text-dark flex-[4]">{professor}</div>
+
         </div>
     );
 };

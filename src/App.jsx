@@ -33,7 +33,7 @@ function App() {
     setDarkMode(prev => !prev);
 
     if (darkMode) {
-      document.body.style.backgroundColor = '#010104'
+      document.body.style.backgroundColor = '#19191F'
     }
 
     else {
