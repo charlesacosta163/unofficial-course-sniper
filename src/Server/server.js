@@ -9,10 +9,10 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 
 // Define route to proxy requests to the external API
-app.get('/api/courses/search', (req, res) => {
-  const { searchTerm } = req.query;
+app.get('/api/courses/search', (req, res) => {  // Course search endpoint
+  const { searchTerm } = req.query;   // Gets the user's search term
   console.log('Search term:', searchTerm); // Log the search term received from the client
-  fetch(`https://psyched-camp-404208.nn.r.appspot.com/course-sniper/api/courses/search?title=${searchTerm}`)
+  fetch(`https://psyched-camp-404208.nn.r.appspot.com/course-sniper/api/courses/search?title=${searchTerm}`)  // Fetches all courses based on the substring
       .then(response => {
           if (response.ok) {
               return response.json();
