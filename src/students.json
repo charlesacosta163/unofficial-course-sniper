@@ -1,0 +1,15 @@
+[{
+    "studentId": 1,
+    "firstName": "Darrell",
+    "lastName": "Johns",
+    "email": "fakeemail89@gmail.com",
+    "password": "bananas1",
+    "targetCourses": []
+},{
+    "studentId": 2,
+    "firstName": "Dick",
+    "lastName": "Bitchell",
+    "email": "iloveyou420@gmail.com",
+    "password": "wahwah",
+    "targetCourses": []
+}]

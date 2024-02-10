@@ -7,22 +7,23 @@ import Profile from "./Components/Profile"
 import Settings from "./Components/Settings"
 import ForgotPassword from "./Auth/ForgotPassword"
 import Notifications from "./Components/Notifications"
+import Error from "./Components/Error"
 
 import { wrapperWidth } from "./styles"
 import Manager from "./Components/Manager"
 import { useState, createContext } from "react"
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom'
 
-export const ArrayContext = createContext([])
 export const DarkContext = createContext(false);
+export const UserContext = createContext(null)
 
 function App() {
 
-  const [classes, setClasses] = useState([]);
-  const contextValue = { classes, setClasses };
-
   const [darkMode, setDarkMode] = useState(true)
   const modeValue = { darkMode, setDarkMode };
+
+  const [user, setUser] = useState(null)
+  const userObj = { user, setUser }
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -41,8 +42,11 @@ function App() {
     }
   }
 
+  // UserContext = user object
+  // DarkContext = dark mode
+
   return (
-    <ArrayContext.Provider value={contextValue}>
+    <UserContext.Provider value={userObj}>
       <DarkContext.Provider value={modeValue}>
         <div className="">
           {!isExcludedRoute && (
@@ -90,9 +94,8 @@ function App() {
               />
 
               <Route path="*" element={
-                <section className={`${wrapperWidth} flex flex-col justify-center py-8 items-center gap-8 ${darkMode == false && "text-light"}`}>
-                  <div><img src="https://42f2671d685f51e10fc6-b9fcecea3e50b3b59bdc28dead054ebc.ssl.cf5.rackcdn.com/illustrations/undraw_undraw_undraw_undraw_undraw_undraw_undraw_search_engines_041x_-2-_cl95_o7o8_pigd_-1-_wbm3_t5p8_-1-_mt5l_(2)_dhxr.svg" alt="" className="w-[300px]" /></div>
-                  <span>Page Not Found</span>
+                <section className={`${wrapperWidth}`}>
+                  <Error />
                 </section>}
               />
 
@@ -119,7 +122,7 @@ function App() {
 
         </div>
       </DarkContext.Provider>
-    </ArrayContext.Provider>
+    </UserContext.Provider>
   )
 }
 

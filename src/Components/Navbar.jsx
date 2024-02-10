@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
-import { Link } from 'react-router-dom'
-import { DarkContext } from "../App";
+import { Link, useNavigate } from 'react-router-dom'
+import { DarkContext, UserContext } from "../App";
 
 import { IoSettingsOutline } from "react-icons/io5";
 import { FiUser } from "react-icons/fi";
@@ -11,6 +11,14 @@ import { MdOutlineLocalLibrary } from "react-icons/md";
 const Navbar = () => {
     const [show, setShow] = useState(null);
     const {darkMode} = useContext(DarkContext)
+    const { user, setUser } = useContext(UserContext)
+
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        setUser(null)
+        navigate('/login')
+    }
 
     return (
         <nav className={`flex justify-between px-8 sm:px-4 items-center py-4 bg-slate-50 ${darkMode ? "bg-light" : "bg-bgDarkFooter text-fontDarkMode"}`}>
@@ -50,7 +58,7 @@ const Navbar = () => {
 
                 <Link to='/login'>
                     <div id="menu-item">
-                        <button className="bg-green text-light px-4 py-2 rounded">Log Out</button>
+                        <button className="bg-green text-light px-4 py-2 rounded" onClick={handleLogout}>Log Out</button>
                     </div>
                 </Link>
 
@@ -97,7 +105,7 @@ const Navbar = () => {
 
                 <Link to='/login'>
                     <div id="menu-item" className="bg-green py-1 px-2 rounded text-center" onClick={() => setShow(false)}>                    
-                        <button className="bg-green text-light px-4 py-2 rounded">Log Out</button>
+                        <button className="bg-green text-light px-4 py-2 rounded" onClick={handleLogout}>Log Out</button>
                     </div>
                 </Link>
 

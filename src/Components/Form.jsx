@@ -1,39 +1,31 @@
 import { useContext, useState, useEffect } from "react";
 import { Link } from 'react-router-dom'
-import { ArrayContext } from "../App";
-import { DarkContext } from "../App";
-
+import { UserContext, DarkContext } from "../App";
 import Class from "../Items/Class";
-import Entry from "../Items/Entry";
-
-import { showBorder, formStyled, buttonStyled, sectionWidth, headerText } from "../styles"
-
 import { FaArrowLeft } from "react-icons/fa6";
+import { sectionWidth, headerText, formStyled } from "../styles";
 
 const Form = () => {
     const { darkMode } = useContext(DarkContext);
-    const { classes, setClasses } = useContext(ArrayContext);
+    const { user, setUser } = useContext(UserContext);
 
     const [selectedTerm, setSelectedTerm] = useState('fall');
-    const [selectedDept, setSelectedDept] = useState('')
+    const [selectedDept, setSelectedDept] = useState('');
     const [filteredCourseData, setFilteredCourseData] = useState([]);
-
-    const [searchTerm, setSearchTerm] = useState('')
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        fetch(`../src/data.json`)
+        fetch(`http://localhost:5000/api/courses/search?title=${searchTerm}`)
             .then(res => res.json())
             .then(data => {
-
+                console.log(data);
                 const filteredTerm = data.filter(course => course.term.toLowerCase().includes(selectedTerm.toLowerCase()));
                 const filteredSection = filteredTerm.filter(course => course.title.toLowerCase().includes(selectedDept.toLowerCase()));
-                const filteredBySearch = filteredSection.filter(course => {
-                    return course.title.toLowerCase().includes(searchTerm.toLowerCase());
-                });
+                const filteredBySearch = filteredSection.filter(course => course.title.toLowerCase().includes(searchTerm.toLowerCase()));
                 const mappedFilteredCourseData = filteredBySearch.map((course, index) => (
                     <Class
                         key={index}
-                        id= {course.id}
+                        id={course.id}
                         sectionName={course.sectionName}
                         title={course.title}
                         startDate={course.startDate}
@@ -43,7 +35,6 @@ const Form = () => {
                         handleAddEntry={handleAddEntry}
                     />
                 ));
-
                 setFilteredCourseData(mappedFilteredCourseData);
             })
             .catch(error => {
@@ -52,20 +43,21 @@ const Form = () => {
     }, [selectedTerm, selectedDept, searchTerm]);
 
     const handleAddEntry = (sectionName, professor, id, title, startDate, seats) => {
-        const [ name, section, number ] = sectionName.split('-')
-        console.log(classes)
-
-        setClasses(prevClasses => [
-            ...prevClasses, {
-                id: id,
-                code: name,
-                section: section,
-                number: number,
-                professor: professor,
-                courseName: title,
-                startDate: startDate,
-                availableSeats: seats
-            }])
+        const [name, section, number] = sectionName.split('-');
+        const newEntry = {
+            id: id,
+            code: name,
+            section: section,
+            number: number,
+            professor: professor,
+            courseName: title,
+            startDate: startDate,
+            availableSeats: seats
+        };
+        setUser(prevUser => {
+            const updatedTargetCourses = [...prevUser.targetCourses, newEntry];
+            return { ...prevUser, targetCourses: updatedTargetCourses };
+        });
     }
 
     return (
@@ -109,7 +101,6 @@ const Form = () => {
                     <div className="w-full">
                         <label htmlFor="class-section" className="block text-xs font-[500] mb-2 text-light">Course Title</label>
                         <input type="text" value={searchTerm} placeholder="e.g accounting/math" className={`${formStyled} rounded outline-none`} onChange={e => setSearchTerm(e.target.value)} required />
-
                     </div>
                 </div>
 
@@ -123,6 +114,3 @@ const Form = () => {
 }
 
 export default Form;
-
-
-

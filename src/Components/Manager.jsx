@@ -1,13 +1,12 @@
-import { sectionWidth, showBorder, buttonStyled } from "../styles";
+import { sectionWidth, buttonStyled } from "../styles";
 import Entry from "../Items/Entry";
-import { ArrayContext } from "../App";
+import { UserContext } from "../App";
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { HiOutlineTrash } from "react-icons/hi";
-import { FaQuestion } from "react-icons/fa";
 
 const Manager = () => {
-  const { classes, setClasses } = useContext(ArrayContext);
+  const { user, setUser } = useContext(UserContext);
   const [selectedEntries, setSelectedEntries] = useState([]);
 
   const handleCheckboxChange = (id) => {
@@ -19,29 +18,28 @@ const Manager = () => {
   };
 
   const handleRemoveSelected = () => {
-    setClasses((prevClasses) =>
-      prevClasses.filter((_, index) => !selectedEntries.includes(index))
+    const updatedCourses = user.targetCourses.filter(
+      (_, index) => !selectedEntries.includes(index)
     );
+    setUser({ ...user, targetCourses: updatedCourses });
     setSelectedEntries([]);
   };
 
-  const allClassData = classes.map((e, i) => {
-    return (
-      <Entry
-        key={i}
-        id={i}
-        code={e.code}
-        section={e.section}
-        number={e.number}
-        professor={e.professor}
-        courseName={e.courseName}
-        startDate={e.startDate}
-        seats={e.availableSeats}
-        isSelected={selectedEntries.includes(i)}
-        onCheckboxChange={handleCheckboxChange}
-      />
-    );
-  });
+  const allClassData = user.targetCourses.map((course, index) => (
+    <Entry
+      key={index}
+      id={index}
+      code={course.code}
+      section={course.section}
+      number={course.number}
+      professor={course.professor}
+      courseName={course.courseName}
+      startDate={course.startDate}
+      seats={course.availableSeats}
+      isSelected={selectedEntries.includes(index)}
+      onCheckboxChange={handleCheckboxChange}
+    />
+  ));
 
   return (
     <section
@@ -78,7 +76,7 @@ const Manager = () => {
           {allClassData}
         </div>
 
-        {classes.length == 0 ? (
+        {user.targetCourses.length === 0 && (
           <div className="py-8 flex flex-col items-center">
             <img
               src="https://evie.undraw.co/images/undraw_creation.svg"
@@ -89,8 +87,6 @@ const Manager = () => {
               Consider Adding Classes?
             </div>
           </div>
-        ) : (
-          ""
         )}
 
         <div className="max-w-[500px] w-full text-center mt-4">

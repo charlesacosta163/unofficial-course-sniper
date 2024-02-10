@@ -1,13 +1,13 @@
 import { buttonStyled, headerText, sectionWidth, showBorder } from "../styles"
-import { ArrayContext } from "../App"
+import { UserContext } from "../App"
 import { DarkContext } from "../App"
 import { useContext } from "react"
 
 const Profile = () => {
-    const {classes, setClasses} = useContext(ArrayContext)
+    const { user, setUser } = useContext(UserContext)
     const {darkMode} = useContext(DarkContext)
 
-    const profileProjects = classes.map((e, i) => {
+    const profileProjects = user.targetCourses.map((e, i) => {
         return (
             <div className={`flex gap-4 ${darkMode ? "bg-gray" : "bg-bgGrayBtn text-fontDarkMode"} px-4 py-2 rounded`} key={i}>
                 <div>{e.code}</div>
@@ -26,7 +26,7 @@ const Profile = () => {
                 <div className={`w-[100px] h-[100px] rounded-full`}>
                     <img src="https://cdn-icons-png.flaticon.com/512/6084/6084667.png" className='w-full h-full' alt="" />
                 </div>
-                <div className="font-[500]">John Doe</div>
+                <div className="font-[500]">{user.firstName} {user.lastName}</div>
             </div>
 
             <div id="profile-right" className={`flex-[4] flex flex-col gap-4 ${darkMode ? "[&>#top]:bg-light [&>#bottom]:bg-light" : "[&>#top]:bg-bgDarkSecondary [&>#bottom]:bg-bgDarkSecondary text-fontDarkMode"}`}>
@@ -37,13 +37,13 @@ const Profile = () => {
                     <div id="fields" className="flex flex-col gap-2">
                         
                         <div className={`flex gap-4`}> 
-                            <div>Username: </div>
-                            <div>johndoe23</div>
+                            <div>Name: </div>
+                            <div>{user.firstName} {user.lastName}</div>
                         </div>
 
                         <div className={`flex gap-4`}> 
                             <div>Email: </div>
-                            <div>johndoe@gmail.com</div>
+                            <div>{user.email}</div>
                         </div>
                         
                         <div className={`flex gap-4 mt-4`}>
@@ -59,7 +59,7 @@ const Profile = () => {
                 <h2 className={`${headerText}`}>Class List {profileProjects.length == 0 ? "" : <span>({profileProjects.length})</span>}</h2>  
 
                     <div id="projects" className="flex flex-col gap-2 mt-4">
-                        {classes.length == 0 ? <span className="text-sm mt-4">No classes added</span> : profileProjects}
+                        {user.targetCourses.length == 0 ? <span className="text-sm mt-4">No classes added</span> : profileProjects}
                     </div>
                 </div>
 

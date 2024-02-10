@@ -26,9 +26,11 @@ const Class = ({ id, sectionName, title, startDate, availableSeats, term, facult
                 <div></div>
             </div>
 
-            <div className="right flex flex-col justify-end items-end">
-                <div>{term}</div>
-                <div>{faculty}</div>
+            <div className="right flex flex-col justify-between items-end text-right">
+                <div>
+                    <div>{term}</div>
+                    <div>{faculty}</div>
+                </div>
                 <div>
                     <Link to='/manager'>
                         <button
