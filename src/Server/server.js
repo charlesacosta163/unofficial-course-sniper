@@ -1,4 +1,9 @@
-import express from 'express';
+// Make sure to install these before running
+// Install express.js: npm install express
+// Install cors: npm install cors
+// Install node-fetch: npm install node-fetch
+
+import express from 'express'; 
 import cors from 'cors';
 import fetch from 'node-fetch';
 
