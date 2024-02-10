@@ -22,7 +22,15 @@ function App() {
   const [darkMode, setDarkMode] = useState(true)
   const modeValue = { darkMode, setDarkMode };
 
-  const [user, setUser] = useState(null)
+  // Default user already set
+  const [user, setUser] = useState({
+    studentId: 2,
+    firstName: "Rick",
+    lastName: "Mitchell",
+    email: "iloveyou420@gmail.com",
+    password: "wahwah",
+    targetCourses: []
+})
   const userObj = { user, setUser }
 
   const navigate = useNavigate();

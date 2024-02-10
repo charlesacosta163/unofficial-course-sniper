@@ -16,6 +16,7 @@ const Login = () => {
 
   // Inside your component
   useEffect(() => {
+    // From a local file, no express server yet
     fetch("../src/students.json")
       .then(res => res.json())
       .then(json => {
@@ -30,6 +31,7 @@ const Login = () => {
   const handleLogin = () => {
     if (user) {
       console.log("Verified");
+      console.log(user);
       navigate('/');
     } else {
       console.log("What the hell");
