@@ -15,6 +15,7 @@ const Form = () => {
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
+        // For local json course data access, use '../src/data.json'
         fetch(`http://localhost:5000/api/courses/search?title=${searchTerm}`)
             .then(res => res.json())
             .then(data => {
