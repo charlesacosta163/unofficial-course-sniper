@@ -16,10 +16,10 @@ const Form = () => {
 
     useEffect(() => {
         // For local json course data access, use '../src/data.json'
+        // fetch(`http://localhost:5000/api/courses/search?title=${searchTerm}`)
         fetch(`http://localhost:5000/api/courses/search?title=${searchTerm}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 const filteredTerm = data.filter(course => course.term.toLowerCase().includes(selectedTerm.toLowerCase()));
                 const filteredSection = filteredTerm.filter(course => course.title.toLowerCase().includes(selectedDept.toLowerCase()));
                 const filteredBySearch = filteredSection.filter(course => course.title.toLowerCase().includes(searchTerm.toLowerCase()));

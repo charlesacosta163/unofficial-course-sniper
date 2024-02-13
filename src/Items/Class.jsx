@@ -34,7 +34,7 @@ const Class = ({ id, sectionName, title, startDate, availableSeats, term, facult
                 <div>
                     <Link to='/manager'>
                         <button
-                            className={`${buttonStyled} bg-primary px-4 text-light text-[1rem] mt-4`}
+                            className={`${buttonStyled} bg-primary px-4 text-light text-[1rem] mt-4 duration-300 hover:bg-bgDarkPrimary`}
                             onClick={handleClick}
                         >
                             Snipe

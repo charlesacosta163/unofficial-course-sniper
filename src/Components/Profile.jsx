@@ -47,8 +47,8 @@ const Profile = () => {
                         </div>
                         
                         <div className={`flex gap-4 mt-4`}>
-                            <button className={`px-4 py-2 rounded font-normal text-[.8rem] bg-dark text-light w-auto`}>Change Email</button>
-                            <button className={`px-4 py-2 rounded font-normal text-[.8rem] bg-dark text-light w-auto`}>Forgot Password</button>
+                            <button className={`px-4 py-2 rounded font-normal text-[.8rem] bg-dark text-light w-auto duration-300 hover:bg-bgDarkMode`}>Change Email</button>
+                            <button className={`px-4 py-2 rounded font-normal text-[.8rem] bg-dark text-light w-auto duration-300 hover:bg-bgDarkMode`}>Forgot Password</button>
                         </div>
                         
                     </div> 

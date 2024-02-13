@@ -58,7 +58,7 @@ const Navbar = () => {
 
                 <Link to='/login'>
                     <div id="menu-item">
-                        <button className="bg-green text-light px-4 py-2 rounded" onClick={handleLogout}>Log Out</button>
+                        <button className="bg-green text-light px-4 py-2 rounded duration-300 hover:bg-greenHovered" onClick={handleLogout}>Log Out</button>
                     </div>
                 </Link>
 

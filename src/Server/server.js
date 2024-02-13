@@ -9,14 +9,15 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 
 // Define route to proxy requests to the external API
-app.get('/api/courses/search', (req, res) => {
+app.get('/api/courses', (req, res) => {
   const { searchTerm } = req.query;
   console.log('Search term:', searchTerm); // Log the search term received from the client
   fetch(`https://psyched-camp-404208.nn.r.appspot.com/course-sniper/api/courses/search?title=${searchTerm}`)
       .then(response => {
           if (response.ok) {
               return response.json();
-          } else {
+            } else {
+              console.log(response);
               console.log('Failed to fetch course data');
               throw new Error('Failed to fetch course data');
           }

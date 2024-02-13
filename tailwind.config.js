@@ -32,11 +32,14 @@ export default {
       "green": "#008445",
       "accent": "#0600C2",
 
+      "greenHovered": "#04ba63",
+      "grayHovered": "#bcbcd6",
+
 
       "bgLightMode": "#F8F8FF",
       "bgDarkMode": "#19191F",
       "fontDarkMode": "#EBE9FC",
-      "bgDarkSecondary": "#251682",
+      "bgDarkSecondary": "#1c1061",
       "bgDarkPrimary": "#3A31D8",
       "bgGrayBtn": "#40404F",
       "bgDarkFooter": "#0d0d11"
