@@ -16,8 +16,8 @@ const Login = () => {
 
   // Inside your component
   useEffect(() => {
-    // From a local file, no express server yet
-    fetch("../src/students.json")
+    // From a local file, fetch("../src/students.json")
+    fetch("http://localhost:5000/api/students")
       .then(res => res.json())
       .then(json => {
         const foundUser = json.find(user => user.email === email && user.password === password);
