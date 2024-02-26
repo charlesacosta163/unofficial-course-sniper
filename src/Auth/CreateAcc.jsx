@@ -18,39 +18,54 @@ const CreateAcc = () => {
 
   const navigate = useNavigate()
 
-  const handleCreateAccount = () => {
-    fetch('../src/students.json', {
-      method: "POST",
-      headers: {
-        "Content-Type": 'application/json'
-      },
-      body: JSON.stringify({
-        firstName: newFName,
-        lastName: newLName,
-        email: newEmail,
-        password: newPassword,
-        targetCourses: []
-      })
-    }).then(response => {
-      if (response.ok && newEmail && newPassword && newFName && newLName && isMatch) {
-        // Handle successful account creation
-        console.log('Account created successfully');
-        // Redirect to login page
-        navigate('/login');
-      } else {
-        console.log('Failed to create account ' + response.status);
-      }
-    })
-    .catch(error => {
-      console.error('Error creating account:', error);
-    })
-  }
+  let studentAmt; // json.length as student ID
 
+  // local data testing
+  // fetch('../src/students.json') 
+
+  const handleCreateAccount = async () => {
+    try {
+        // Makes sure all input fields are filled
+        if (!newEmail || !newPassword || !newFName || !newLName || !isMatch) {
+            console.log('Please fill in all fields correctly');
+            return;
+        }
+
+        // Fetch to attempt post request of creating a new account
+        const response = await fetch('http://localhost:5000/api/students', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                studentId: studentAmt,
+                firstName: newFName,
+                lastName: newLName,
+                email: newEmail,
+                password: newPassword,
+                targetCourses: [],
+            }),
+        });
+
+        if (response.ok) {
+            console.log('Account created successfully');
+            navigate('/login'); // Navigate to login page when account creation is successful
+        } else {
+            console.log('Failed to create account', response.status);
+        }
+    } catch (error) {
+        console.error('Error creating account:', error);
+    }
+};
+
+  // Makes sure if password and confirm password is a match
   useEffect(() => {
-    fetch("../src/students.json")
+    fetch("http://localhost:5000/api/students")
     .then(res => res.json())
     .then(json => {
       console.log(json);
+      studentAmt = json.length + 1;
+      console.log(studentAmt);
       setIsMatch(newPassword === confirmPassword);
     })
   }, [newPassword, confirmPassword]);
