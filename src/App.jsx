@@ -24,11 +24,11 @@ function App() {
 
   // User Set As the first student in the Actual DB
   const [user, setUser] = useState({
-    studentId: 1,
-    firstName: 'Kyrollos',
-    lastName: 'Girgis',
-    email: 'kyrollosmg0380@my.middlesexcc.edu',
-    password: 'P@ssw0rd5528%',
+    studentId: 4,
+    firstName: 'Charles',
+    lastName: 'Fake',
+    email: 'fakecharles163@gmail.com',
+    password: '$2a$10$9FwuTmNwkw6lVtz42/VlUuvVfrOV.szv6br..8GnMckppJtWtLfNe',
     targetCourses: []
   })
   const userObj = { user, setUser }
