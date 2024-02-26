@@ -55,11 +55,11 @@ const Questions = () => {
 
       <div id="accordion-container" className="w-full flex flex-col gap-4">
         {accordions.map((accordion) => (
-          <div key={accordion.id} id="accordion" className={`overflow-y-hidden rounded-[20px] ${darkMode ? "bg-light" : "bg-bgDarkSecondary"}`}>
+          <div key={accordion.id} id="accordion" className={`overflow-y-hidden rounded-[20px] ${darkMode ? "bg-light" : "bg-bgDarkSecondary"}`}  onClick={() => toggleAccordion(accordion.id)}>
             <div id="details" className="flex justify-between items-center p-4 font-[500]">
               <div className=''>{accordion.details}</div>
               <div>
-                <button className = 'text-2xl' onClick={() => toggleAccordion(accordion.id)}>
+                <button className = 'text-2xl'>
                   {accordion.isOpen ? <HiOutlineChevronUp/>: <HiOutlineChevronDown/>}
                 </button>
               </div>

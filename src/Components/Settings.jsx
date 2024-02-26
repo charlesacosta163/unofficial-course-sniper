@@ -10,7 +10,7 @@ const Settings = ({setDarkMode}) => {
   return (
     <section id="settings-section" className={`h-auto md:h-auto flex justify-center items-center ${sectionWidth}`}>
     
-        <div id="settings" className={`max-w-[800px] w-full p-8 flex flex-col gap-4 ${darkMode ? "bg-light" : "bg-bgDarkSecondary text-fontDarkMode [&>#setting]:bg-bgDarkSecondary [&>#setting>div>p]:text-fontDarkMode"} rounded`}>
+        <div id="settings" className={`max-w-[800px] w-full p-8 flex flex-col gap-4 ${darkMode ? "bg-light" : "bg-bgDarkSecondary text-fontDarkMode [&>#setting]:bg-bgDarkSecondary [&>#setting>div>p]:text-fontDarkMode"} rounded-[20px]`}>
 
             <h1 className={`${headerText}`}>Settings</h1>
 

@@ -18,9 +18,9 @@ const Class = ({ id, sectionName, title, startDate, availableSeats, term, facult
     };
 
     return (
-        <div className={`class flex justify-between ${darkMode ? "bg-gray" : "bg-bgGrayBtn text-light"} p-4 rounded`} >
+        <div className={`class flex justify-between ${darkMode ? "bg-gray" : "bg-bgGrayBtn text-light"} p-4 rounded-[20px]`} >
             <div className="left flex flex-col justify-between">
-                <div>{sectionName}</div>
+                <div className='font-[500]'>{sectionName}</div>
                 <div>{title}</div>
                 <div>Seats Available: {availableSeats}</div>
                 <div></div>
