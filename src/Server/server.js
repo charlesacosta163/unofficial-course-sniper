@@ -3,7 +3,7 @@
 // Install cors: npm install cors
 // Install node-fetch: npm install node-fetch
 
-import express from 'express'; 
+import express from 'express';
 import cors from 'cors';
 import fetch from 'node-fetch';
 
@@ -13,31 +13,130 @@ const PORT = process.env.PORT || 5000;
 // Enable CORS
 app.use(cors());
 
-// Define route to proxy requests to the external API
-app.get('/api/courses', (req, res) => {
-  const { searchTerm } = req.query;
-app.get('/api/courses/search', (req, res) => {  // Course search endpoint
-  const { searchTerm } = req.query;   // Gets the user's search term
-  console.log('Search term:', searchTerm); // Log the search term received from the client
-  fetch(`https://psyched-camp-404208.nn.r.appspot.com/course-sniper/api/courses/search?title=${searchTerm}`)  // Fetches all courses based on the substring
-      .then(response => {
-          if (response.ok) {
-              return response.json();
-            } else {
-              console.log(response);
-              console.log('Failed to fetch course data');
-              throw new Error('Failed to fetch course data');
-          }
-      })
-      .then(data => {
-          console.log('Received course data:', data); // Log the data received from the external API
-          res.json(data);
-      })
-      .catch(error => {
-          console.error('Error fetching course data:', error);
-          res.status(500).json({ error: 'Internal server error' });
-      });
+// Fetch all courses via search term
+app.get('/api/courses/search', async (req, res) => {  // Course search endpoint
+  const { title } = req.query;   // Gets the user's search term
+  console.log('Search term:', title); // Log the search term received from the client
+  const url = 'https://psyched-camp-404208.nn.r.appspot.com/course-sniper/api/courses/search'
+
+  try {
+    const response = await fetch(url + "?" + new URLSearchParams({ title, page: 0, size: 10 }))
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Received course data:', data); // Log the data received from the external API
+      res.json(data);
+    } else {
+      console.log(response);
+      console.log('Failed to fetch course data');
+      throw new Error(`Failed to fetch course data: ${response.status}`);
+    }
+
+  }
+
+  catch (error) {
+    console.error('Error fetching course data:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
+
+// Fetch all users
+app.get("/api/students", async (req, res) => {
+  try {
+    const response = await fetch('https://psyched-camp-404208.nn.r.appspot.com/course-sniper/api/students')
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.log('An error occurred', error);
+  }
+})
+
+
+// Fetch the user's info 
+app.get('/api/students/:id', async (req, res) => {
+  try {
+    const studentId = req.params.id;
+
+    const student = await fetch(`https://psyched-camp-404208.nn.r.appspot.com/course-sniper/api/students/${studentId}`);
+    const data = await student.json();
+
+    res.json(data);
+    
+  } catch (error) {
+    console.error('Error fetching student information:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+// Updates the target courses for the user
+app.put('api/students/:id', async (req, res) => {
+  try {
+    const studentId = req.params.id;
+    const { targetCourses } = req.body;
+
+    const response = await fetch(`https://psyched-camp-404208.nn.r.appspot.com/course-sniper/api/students/${studentId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ targetCourses })
+    });
+
+    if (response.ok) {
+      const updatedStudent = await response.json();
+      res.status(200).json({ message: 'Target courses updated successfully', student: updatedStudent });
+    } else if (response.status === 404) {
+      res.status(404).json({ error: 'Student not found' });
+    } else {
+      throw new Error('Failed to update target courses');
+    }
+  } catch (error) {
+    console.error('Error updating target courses:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+
+})
+
+
+// Creating accounts endpoint
+
+app.post("/api/students", async (req, res) => {
+  try {
+    const { studentId, firstName, lastName, email, password, targetCourses } = req.body;
+    // Make HTTP request to save student data
+    const response = await fetch('https://psyched-camp-404208.nn.r.appspot.com/course-sniper/api/students', {
+      method: "POST",
+      headers: {
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify({
+        studentId,
+        firstName,
+        lastName,
+        email,
+        password,
+        targetCourses: []
+    })
+    });
+
+    // Parse the JSON response
+    const data = await response.json();
+    
+    // If the response indicates success, send success response
+    if (response.ok) {
+      res.status(201).json({ message: 'Account created successfully' });
+    } else {
+      // If the response indicates an error, send error response with error message
+      res.status(response.status).json({ error: data.error });
+    }
+  } catch (error) {
+    console.error("Error creating account", error);
+    // If an error occurs, send error response
+    res.status(500).json({ error: 'Internal server error' });
+  }
+
+})
 
 // Start the server
 app.listen(PORT, () => {
