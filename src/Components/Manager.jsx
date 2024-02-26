@@ -25,6 +25,8 @@ const Manager = () => {
     setSelectedEntries([]);
   };
 
+  // Will Soon implement PUT and DELETE Requests in this User Course Sniped Table
+
   const allClassData = user.targetCourses.map((course, index) => (
     <Entry
       key={index}
