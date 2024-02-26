@@ -22,15 +22,15 @@ function App() {
   const [darkMode, setDarkMode] = useState(true)
   const modeValue = { darkMode, setDarkMode };
 
-  // Default user already set
+  // User Set As the first student in the Actual DB
   const [user, setUser] = useState({
-    studentId: 2,
-    firstName: "Rick",
-    lastName: "Mitchell",
-    email: "iloveyou420@gmail.com",
-    password: "wahwah",
+    studentId: 1,
+    firstName: 'Kyrollos',
+    lastName: 'Girgis',
+    email: 'kyrollosmg0380@my.middlesexcc.edu',
+    password: 'P@ssw0rd5528%',
     targetCourses: []
-})
+  })
   const userObj = { user, setUser }
 
   const navigate = useNavigate();
