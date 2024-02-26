@@ -44,6 +44,8 @@ const Form = () => {
                         handleAddEntry={handleAddEntry}
                     />
                 ));
+
+                // All Courses Displayed from search term
                 setFilteredCourseData(mappedFilteredCourseData);
                 setLoading(false); // Set loading state to false when data fetching is done
     
