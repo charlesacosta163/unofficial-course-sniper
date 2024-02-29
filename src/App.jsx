@@ -8,10 +8,12 @@ import Settings from "./Components/Settings"
 import ForgotPassword from "./Auth/ForgotPassword"
 import Notifications from "./Components/Notifications"
 import Error from "./Components/Error"
+import Manager from "./Components/Manager"
+
+import PrivateRoute from "./PrivateRoute"
 
 import { wrapperWidth } from "./styles"
-import Manager from "./Components/Manager"
-import { useState, createContext } from "react"
+import { useState, createContext, Fragment } from "react"
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom'
 
 export const DarkContext = createContext(false);
@@ -23,10 +25,22 @@ function App() {
   const modeValue = { darkMode, setDarkMode };
 
   // User Set As the first student in the Actual DB
-  const [user, setUser] = useState({
+
+  /*
+  {
     studentId: 4,
     firstName: 'Charles',
     lastName: 'Fake',
+    email: 'fakecharles163@gmail.com',
+    password: '$2a$10$9FwuTmNwkw6lVtz42/VlUuvVfrOV.szv6br..8GnMckppJtWtLfNe',
+    targetCourses: []
+  }
+  */
+
+  const [user, setUser] = useState({
+    studentId: 3,
+    firstName: 'Charles',
+    lastName: 'Real',
     email: 'fakecharles163@gmail.com',
     password: '$2a$10$9FwuTmNwkw6lVtz42/VlUuvVfrOV.szv6br..8GnMckppJtWtLfNe',
     targetCourses: []
@@ -56,79 +70,39 @@ function App() {
   return (
     <UserContext.Provider value={userObj}>
       <DarkContext.Provider value={modeValue}>
-        <div className="">
-          {!isExcludedRoute && (
-            <header>
-              <Navbar />
-            </header>
-          )}
+        <Fragment>
+          <div className="">
+            {!isExcludedRoute && (
+              <header>
+                <Navbar />
+              </header>
+            )}
 
-          <main>
+            <main>
 
-            <Routes>
-              <Route path="/" element={
-                <section className={`${wrapperWidth}`}>
-                  <Home />
-                </section>}
-              />
+              <Routes>
 
-              <Route path="/form" element={
-                <section className={`${wrapperWidth}`}>
-                  <Form />
-                </section>}
-              />
-              <Route path="/manager" element={
-                <section className={`${wrapperWidth}`}>
-                  <Manager />
-                </section>}
-              />
+                {/* Public Routes */}
+                <Route path="/login" element={<section className={`${wrapperWidth}`}><Login /></section>} />
+                <Route path="/createacc" element={<section className={`${wrapperWidth}`}><CreateAcc /></section>} />
+                <Route path="/forgotpassword" element={<section className={`${wrapperWidth}`}><ForgotPassword /></section>} />
+                <Route path="*" element={<section className={`${wrapperWidth}`}><Error /></section>} />
 
-              <Route path="/profile" element={
-                <section className={`${wrapperWidth}`}>
-                  <Profile />
-                </section>}
-              />
+                {/* Private Routes */}
 
-              <Route path="/settings" element={
-                <section className={`${wrapperWidth}`}>
-                  <Settings setDarkMode={handleDarkMode} />
-                </section>}
-              />
+                <Route path='/' element={<PrivateRoute><section className={`${wrapperWidth}`}><Home /></section></PrivateRoute>} />
+                <Route path='/form' element={<PrivateRoute><section className={`${wrapperWidth}`}><Form /></section></PrivateRoute>} />
+                <Route path='/manager' element={<PrivateRoute><section className={`${wrapperWidth}`}><Manager /></section></PrivateRoute>} />
+                <Route path='/profile' element={<PrivateRoute><section className={`${wrapperWidth}`}><Profile /></section></PrivateRoute>} />
+                <Route path='/settings' element={<PrivateRoute><section className={`${wrapperWidth}`}><Settings setDarkMode={handleDarkMode} /></section></PrivateRoute>} />
+                <Route path='/notifications' element={<PrivateRoute><section className={`${wrapperWidth}`}><Notifications /></section></PrivateRoute>} />
 
-              <Route path="/notifications" element={
-                <section className={`${wrapperWidth}`}>
-                  <Notifications />
-                </section>}
-              />
+              </Routes>
 
-              <Route path="*" element={
-                <section className={`${wrapperWidth}`}>
-                  <Error />
-                </section>}
-              />
+            </main>
 
-              <Route path="/login" element={
-                <section className={`${wrapperWidth}`}>
-                  <Login />
-                </section>}
-              />
-
-              <Route path="/createacc" element={
-                <section className={`${wrapperWidth}`}>
-                  <CreateAcc />
-                </section>}
-              />
-
-              <Route path="/forgotpassword" element={
-                <section className={`${wrapperWidth}`}>
-                  <ForgotPassword />
-                </section>}
-              />
-
-            </Routes>
-          </main>
-
-        </div>
+          </div>
+        </Fragment>
       </DarkContext.Provider>
     </UserContext.Provider>
   )

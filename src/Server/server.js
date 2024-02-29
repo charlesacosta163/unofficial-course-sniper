@@ -13,6 +13,9 @@ const PORT = process.env.PORT || 5000;
 // Enable CORS
 app.use(cors());
 
+// Enable express.json
+app.use(express.json())
+
 // Fetch all courses via search term
 app.get('/api/courses/search', async (req, res) => {  // Course search endpoint
   const { title } = req.query;   // Gets the user's search term
@@ -55,7 +58,7 @@ app.get("/api/students", async (req, res) => {
 // Fetch the user's info 
 app.get('/api/students/:id', async (req, res) => {
   try {
-    const studentId = req.params.id;
+    const studentId = parseInt(req.params.id);
 
     const student = await fetch(`https://psyched-camp-404208.nn.r.appspot.com/course-sniper/api/students/${studentId}`);
     const data = await student.json();
@@ -72,15 +75,19 @@ app.get('/api/students/:id', async (req, res) => {
 // Updates the target courses for the user
 app.put('api/students/:id', async (req, res) => {
   try {
-    const studentId = req.params.id;
-    const { targetCourses } = req.body;
+    const {
+      body,
+      params: { id }
+    } = req
+
+    const studentId = parseInt(id)
 
     const response = await fetch(`https://psyched-camp-404208.nn.r.appspot.com/course-sniper/api/students/${studentId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ targetCourses })
+      body: JSON.stringify({...body})
     });
 
     if (response.ok) {
@@ -103,33 +110,27 @@ app.put('api/students/:id', async (req, res) => {
 
 app.post("/api/students", async (req, res) => {
   try {
-    const { studentId, firstName, lastName, email, password, targetCourses } = req.body;
+    const { body } = req
     // Make HTTP request to save student data
     const response = await fetch('https://psyched-camp-404208.nn.r.appspot.com/course-sniper/api/students', {
       method: "POST",
       headers: {
         "Content-Type": 'application/json'
       },
-      body: JSON.stringify({
-        studentId,
-        firstName,
-        lastName,
-        email,
-        password,
-        targetCourses: []
-    })
+      body: JSON.stringify(body)
     });
 
-    // Parse the JSON response
-    const data = await response.json();
-    
-    // If the response indicates success, send success response
+    // Check if the response indicates success
     if (response.ok) {
-      res.status(201).json({ message: 'Account created successfully' });
+      // Send success response with the request body
+      res.status(201).json({ message: "Account created successfully!" });
     } else {
-      // If the response indicates an error, send error response with error message
-      res.status(response.status).json({ error: data.error });
+      // Parse error response
+      const data = await response.json();
+      // Send error response with error message from the server
+      res.status(response.status).json({ error: data.error || 'Unknown error' });
     }
+
   } catch (error) {
     console.error("Error creating account", error);
     // If an error occurs, send error response

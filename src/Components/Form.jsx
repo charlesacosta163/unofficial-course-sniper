@@ -14,50 +14,7 @@ const Form = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            if (searchTerm.length < 3) {
-                return;
-            }
-    
-            setLoading(true);
-            
-            // Fetch the courses via substring search of the search term
-            try {
-                const response = await fetch(`http://localhost:5000/api/courses/search?title=${searchTerm}`);
-                const data = await response.json();
-    
-                const filteredTerm = data.filter(course => course.term.toLowerCase().includes(selectedTerm.toLowerCase()));
-                const filteredBySearch = filteredTerm.filter(course => course.title.toLowerCase().includes(searchTerm.toLowerCase()));
-
-                // Course Objects Mapping
-                const mappedFilteredCourseData = filteredBySearch.map((course, index) => (
-                    <Class
-                        key={index}
-                        id={course.id}
-                        sectionName={course.sectionName}
-                        title={course.title}
-                        startDate={course.startDate}
-                        availableSeats={course.availableSeats}
-                        term={course.term}
-                        faculty={course.faculty}
-                        handleAddEntry={handleAddEntry}
-                    />
-                ));
-
-                // All Courses Displayed from search term
-                setFilteredCourseData(mappedFilteredCourseData);
-                setLoading(false); // Set loading state to false when data fetching is done
-    
-            } catch (error) {
-                console.error('Error fetching courses:', error);
-                setLoading(false); // Set loading state to false if there's an error
-            }
-        };
-    
-        fetchData(); // Call the async function immediately
-    }, [selectedTerm, searchTerm]);
-
+    // Define handleAddEntry function
     const handleAddEntry = async (sectionName, professor, id, title, startDate, seats) => {
         const [name, section, number] = sectionName.split('-');
         console.log(user.studentId);
@@ -74,31 +31,76 @@ const Form = () => {
             availableSeats: seats
         };
 
-        // Attempt an user PUT request on targetCourses when handleAddEntry function is fired
+        // Attempt a PUT request to update targetCourses when handleAddEntry function is called
         try {
-
             // Get current user targetCourses array and update with the newEntry object
             const updatedTargetCourses = [...user.targetCourses, newEntry];
 
-            // PUT Request, fetches the express server
+            // PUT Request to update targetCourses in the database
             await fetch(`http://localhost:5000/api/students/${user.studentId}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ targetCourses: updatedTargetCourses }) // Only update targetCourses in the DB
-        });
-        
-        // Set the current user information with the targetCourses array updated locally
-        setUser(prevUser => ({ ...prevUser, targetCourses: updatedTargetCourses }));
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    user, // Spread all user properties...
+                    targetCourses: updatedTargetCourses // Update targetCourses only
+                }) // Update targetCourses in the database
+            });
 
-        console.log("Target courses updated successfully");
+            // Set the current user information with the targetCourses array updated locally
+            setUser(prevUser => ({ ...prevUser, targetCourses: updatedTargetCourses }));
+
+            console.log("Target courses updated successfully");
 
         } catch (error) {
             console.log("Error", error);
         }
-
     }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (searchTerm.length < 3) {
+                return;
+            }
+
+            setLoading(true);
+
+            // Fetch the courses via substring search of the search term
+            try {
+                const response = await fetch(`http://localhost:5000/api/courses/search?title=${searchTerm}`);
+                const data = await response.json();
+
+                const filteredTerm = data.filter(course => course.term.toLowerCase().includes(selectedTerm.toLowerCase()));
+                const filteredBySearch = filteredTerm.filter(course => course.title.toLowerCase().includes(searchTerm.toLowerCase()));
+
+                // Course Objects Mapping
+                const mappedFilteredCourseData = filteredBySearch.map((course, index) => (
+                    <Class
+                        key={index}
+                        id={course.id}
+                        sectionName={course.sectionName}
+                        title={course.title}
+                        startDate={course.startDate}
+                        availableSeats={course.availableSeats}
+                        term={course.term}
+                        faculty={course.faculty}
+                        handleAddEntry={handleAddEntry} 
+                    />
+                ));
+
+                // All Courses Displayed from search term
+                setFilteredCourseData(mappedFilteredCourseData);
+                setLoading(false); // Set loading state to false when data fetching is done
+
+            } catch (error) {
+                console.error('Error fetching courses:', error);
+                setLoading(false); // Set loading state to false if there's an error
+            }
+        };
+
+        fetchData(); // Call the async function immediately
+    }, [selectedTerm, searchTerm, user.studentId]);
 
     return (
         <section id="form-section" className={`${sectionWidth} h-auto flex flex-col items-center`}>

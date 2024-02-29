@@ -18,8 +18,6 @@ const CreateAcc = () => {
 
   const navigate = useNavigate()
 
-  let studentAmt; // json.length as student ID
-
   // local data testing
   // fetch('../src/students.json') 
 
@@ -38,7 +36,6 @@ const CreateAcc = () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                studentId: studentAmt,
                 firstName: newFName,
                 lastName: newLName,
                 email: newEmail,
@@ -60,14 +57,7 @@ const CreateAcc = () => {
 
   // Makes sure if password and confirm password is a match
   useEffect(() => {
-    fetch("http://localhost:5000/api/students")
-    .then(res => res.json())
-    .then(json => {
-      console.log(json);
-      studentAmt = json.length + 1;
-      console.log(studentAmt);
       setIsMatch(newPassword === confirmPassword);
-    })
   }, [newPassword, confirmPassword]);
 
   return (
@@ -97,7 +87,8 @@ const CreateAcc = () => {
 
         </div>
 
-        <div className="w-full"><button className={`${buttonStyled} text-[1rem] bg-primary text-light mt-2 duration-300 hover:bg-bgDarkPrimary`} onClick={handleCreateAccount}>Create Account</button></div>
+        <div className="w-full"><button className={`${buttonStyled} text-[1rem] bg-primary text-light mt-2 duration-300 hover:bg-bgDarkPrimary`} 
+        onClick={handleCreateAccount}>Create Account</button></div>
 
         <div className="underline"><Link to='/login'>Return to login page</Link></div>
 
