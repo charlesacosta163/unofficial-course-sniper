@@ -1,6 +1,48 @@
-# unofficial-course-sniper
+# Middlesex College Course Sniper
 
-Updated (2/10/24)
-Official Demo Link: https://65c8153b722bc9bcae6e6283--snipeunofficial.netlify.app/login
+### Tech Stack/s Used for Front-end:
+1. **React.js**
+Used for creating and structuring the whole user interface and its functionalities
+2. **Tailwind CSS**
+Employed for styling the project and implementing its animations.
 
-Documentation soon.
+### Tech Stack/s Used for Back-end:
+1. **Express.js**
+Employed for building the backend server to handle API requests and database operations.
+
+### Additional Technologies and Tools:
+
+1. **Fetch API**
+Utilized for making HTTP requests from the client-side React application to the Express.js backend server.
+
+2. **Google Cloud Platform** (*Coming soon...*)
+Will host the Express.js backend server and deploy the application to the cloud platform.
+
+## Summary
+The project aims to enhance the school's class registration system by introducing an automated class availability notification feature. This feature involves creating a database that periodically checks the availability of classes and sends notifications to students when a desired class became open.
+
+The implementation of the automated class availability notification feature has a significant positive impact in the college. It revolutionizes the way students registered for their classes by reducing the manual effort required to monitor class availability.
+
+## Background
+The traditional process of class registration is time-consuming and demanding. Students are required to constantly monitor course availability, risking the chance of missing out on critical classes essential for their academic journey. The need for an efficient and user-centric solution became apparent, prompting our team to initiate this project.
+
+## Features
+1. **Course Search**
+Users can search for courses by title, term, or other relevant keywords to find the desired courses.
+
+2. **Course Sniping**
+Students can add courses to their list of target courses, allowing them to track availability and receive notifications when seats become available.
+
+3. **User Authentication**
+Secure user authentication ensures that only registered students can access and manage their course preferences.
+
+4. **Responsive Design**
+The user interface is designed to be responsive, providing a seamless experience across various devices and screen sizes.
+
+5. **Intuitive Interface**
+The application features an intuitive and user-friendly interface, making it easy for students to navigate and interact with course information.
+
+6.  **Notification System**
+Students receive notifications when a course on their target list has available seats, allowing them to promptly observe their desired course.
+
+More to come...
