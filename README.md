@@ -1,5 +1,5 @@
 # Middlesex College Course Sniper
-[** Case Study Link **](https://kemargraham267.wixsite.com/kemar/sniper)\
+[** Case Study Link **](https://kemargraham267.wixsite.com/kemar/sniper)
 
 ### Tech Stack/s Used for Front-end:
 1. **React.js**\
