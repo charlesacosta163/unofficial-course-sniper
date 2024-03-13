@@ -1,21 +1,22 @@
 # Middlesex College Course Sniper
+[** Case Study Link **](https://kemargraham267.wixsite.com/kemar/sniper)\
 
 ### Tech Stack/s Used for Front-end:
-1. **React.js**
+1. **React.js**\
 Used for creating and structuring the whole user interface and its functionalities
-2. **Tailwind CSS**
+2. **Tailwind CSS**\
 Employed for styling the project and implementing its animations.
 
 ### Tech Stack/s Used for Back-end:
-1. **Express.js**
+1. **Express.js**\
 Employed for building the backend server to handle API requests and database operations.
 
 ### Additional Technologies and Tools:
 
-1. **Fetch API**
+1. **Fetch API**\
 Utilized for making HTTP requests from the client-side React application to the Express.js backend server.
 
-2. **Google Cloud Platform** (*Coming soon...*)
+2. **Google Cloud Platform** (*Coming soon...*)\
 Will host the Express.js backend server and deploy the application to the cloud platform.
 
 ## Summary
