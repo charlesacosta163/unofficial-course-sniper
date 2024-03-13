@@ -47,7 +47,20 @@ The application features an intuitive and user-friendly interface, making it eas
 Students receive notifications when a course on their target list has available seats, allowing them to promptly observe their desired course.
 
 ## Installation
-1. Fork this repository
-2. Use the following commands:
-  - `npm run dev` to run the client-side server
-  - `npm run backend` to run the express.js backend
+
+### Description
+This repository contains a project built with React.js and Express.js. Follow the instructions below to set up and run the project on your local machine.
+
+### Prerequisites
+Before getting started, make sure you have [**Node.js**](https://nodejs.org/en) and **npm** (comes with Node as well) installed on your system.
+
+### Fork this Repository
+Begin by forking this repository to your GitHub account.
+
+### Commands
+1. `npm run dev`: This command starts the client-side server for the React application.
+2. `npm run backend`: Use this command to run the Express.js backend server.
+
+### Accessing the Application
+Once the servers are running, you can access the application in your web browser. The client-side server typically runs on http://localhost:5000, while the Express.js backend may run on a different port (check code).
+
