@@ -46,4 +46,8 @@ The application features an intuitive and user-friendly interface, making it eas
 6.  **Notification System**\
 Students receive notifications when a course on their target list has available seats, allowing them to promptly observe their desired course.
 
-More to come...
+## Installation
+1. Fork this repository
+2. Use the following commands:\
+  - `npm run dev` to run the client-side server
+  - `npm run backend` to run the express.js backend
