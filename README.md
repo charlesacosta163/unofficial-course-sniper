@@ -48,6 +48,6 @@ Students receive notifications when a course on their target list has available 
 
 ## Installation
 1. Fork this repository
-2. Use the following commands:\
+2. Use the following commands:
   - `npm run dev` to run the client-side server
   - `npm run backend` to run the express.js backend
