@@ -27,7 +27,7 @@ const Home = () => {
                         <p>For students who are in the process of registering for classes</p>
 
                         <Link to="/form">
-                            <button className={`${buttonStyled} bg-primary text-light duration-300 hover:bg-bgDarkPrimary`}>New Snipe</button>
+                            <button className={`${buttonStyled} bg-primary text-light duration-300 hover:bg-bgDarkPrimary hover:rounded-[20px]`}>New Snipe</button>
                         </Link>
                     </div>
 
@@ -41,7 +41,7 @@ const Home = () => {
                         <p>For students focusing on managing the status of classes</p>
 
                         <Link to="/manager">
-                            <button className={`${buttonStyled} ${darkMode == false ? "bg-bgGrayBtn hover:bg-bgDarkMode" : "bg-gray hover:bg-grayHovered"} duration-300 `}>Manage Snipes</button>
+                            <button className={`${buttonStyled} ${darkMode == false ? "bg-bgGrayBtn hover:bg-bgDarkMode" : "bg-gray hover:bg-grayHovered"} duration-300 hover:rounded-[20px] `}>Manage Snipes</button>
                         </Link>
                     </div>
 

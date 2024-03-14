@@ -32,17 +32,17 @@ function App() {
     firstName: 'Charles',
     lastName: 'Fake',
     email: 'fakecharles163@gmail.com',
-    password: '$2a$10$9FwuTmNwkw6lVtz42/VlUuvVfrOV.szv6br..8GnMckppJtWtLfNe',
+    password: '$2a$10$iZ/vo72rUiNW4RAFZFNlduZ3jVtAVZLMOPqY0Krz5.15nenMsNBMG',
     targetCourses: []
   }
   */
 
   const [user, setUser] = useState({
-    studentId: 3,
+    studentId: 4,
     firstName: 'Charles',
-    lastName: 'Real',
+    lastName: 'Fake',
     email: 'fakecharles163@gmail.com',
-    password: '$2a$10$9FwuTmNwkw6lVtz42/VlUuvVfrOV.szv6br..8GnMckppJtWtLfNe',
+    password: '$2a$10$iZ/vo72rUiNW4RAFZFNlduZ3jVtAVZLMOPqY0Krz5.15nenMsNBMG',
     targetCourses: []
   })
   const userObj = { user, setUser }

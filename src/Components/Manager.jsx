@@ -93,7 +93,7 @@ const Manager = () => {
 
         <div className="max-w-[500px] w-full text-center mt-4">
           <Link to="/form">
-            <button className={`${buttonStyled} bg-primary text-light duration-300 hover:bg-bgDarkPrimary`}>
+            <button className={`${buttonStyled} bg-primary text-light duration-300 hover:bg-bgDarkPrimary hover:rounded-[20px]`}>
               Add More Classes
             </button>
           </Link>

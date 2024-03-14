@@ -1,12 +1,39 @@
-import { buttonStyled, headerText, sectionWidth, showBorder } from "../styles";
+import { buttonStyled, headerText, sectionWidth, showBorder, formStyled } from "../styles";
 import { UserContext } from "../App";
 import { DarkContext } from "../App";
 import { useContext, useEffect, useState } from "react";
+import { HiXMark } from "react-icons/hi2";
 
 const Profile = () => {
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const { darkMode } = useContext(DarkContext);
     const [profileProjects, setProfileProjects] = useState([]);
+
+    const [showDelete, setShowDelete] = useState(false)
+    const [password, setPassword] = useState('')
+    const [isMatch, setIsMatch] = useState(null)
+
+    async function handleDeleteAccount() {
+        try {
+            if(password === user.password) {
+                
+                // API needs to be fixed
+                const response = await fetch(`http://localhost:5000/api/students/${user.studentId}`, {
+                    method: "DELETE"
+                })
+
+                const data = await response.json()
+                console.log(data);
+
+            }
+            else {
+                console.log("Not matched")
+                console.log(user.password);
+            }
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
 
     useEffect(() => {
         fetchUserData();
@@ -57,8 +84,20 @@ const Profile = () => {
                                 <div>{user.email}</div>
                             </div>
                             <div className={`flex gap-4 mt-4`}>
-                                <button className={`px-4 py-2 rounded font-normal text-[.8rem] bg-dark text-light w-auto duration-300 hover:bg-bgDarkMode`}>Change Email</button>
+                                <button className={`px-4 py-2 rounded font-normal text-[.8rem] bg-dark text-light w-auto duration-300 hover:bg-bgDarkMode`} onClick={() => {
+                                    setShowDelete(prev => !prev)
+                                    setPassword('')
+                                }}>{showDelete ? <HiXMark className="text-xl"/> : "Delete Account"}</button>
                                 <button className={`px-4 py-2 rounded font-normal text-[.8rem] bg-dark text-light w-auto duration-300 hover:bg-bgDarkMode`}>Forgot Password</button>
+                            </div>
+
+                            <div className={`flex-col gap-4 mt-4 ${showDelete ? "flex" : "hidden"}`}>
+                                <label htmlFor="" className="italic text-sm">Type <span className="font-bold">your password</span> to delete your account</label>
+                                <input type="password" placeholder="Password here" className={`${formStyled} bg-gray`} value={password} onChange={e => setPassword(e.target.value)}/>
+                                <div className="">
+                                    <button className={`${buttonStyled} bg-[#ff0000] px-4 text-light duration-300 hover:rounded-[30px]`} onClick={handleDeleteAccount}>Submit</button>
+                                </div>
+
                             </div>
                         </div>
                     </div>

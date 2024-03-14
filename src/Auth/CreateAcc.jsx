@@ -87,7 +87,7 @@ const CreateAcc = () => {
 
         </div>
 
-        <div className="w-full"><button className={`${buttonStyled} text-[1rem] bg-primary text-light mt-2 duration-300 hover:bg-bgDarkPrimary`} 
+        <div className="w-full"><button className={`${buttonStyled} text-[1rem] bg-primary text-light mt-2 duration-300 hover:bg-bgDarkPrimary hover:rounded-[20px]`} 
         onClick={handleCreateAccount}>Create Account</button></div>
 
         <div className="underline"><Link to='/login'>Return to login page</Link></div>

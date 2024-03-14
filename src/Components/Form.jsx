@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { UserContext, DarkContext } from "../App";
 import Class from "../Items/Class";
 import { FaArrowLeft } from "react-icons/fa6";
-import { sectionWidth, headerText, formStyled } from "../styles";
+import { sectionWidth, headerText, formStyled, buttonStyled } from "../styles";
 
 const Form = () => {
     const { darkMode } = useContext(DarkContext);
@@ -13,6 +13,8 @@ const Form = () => {
     const [filteredCourseData, setFilteredCourseData] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(false);
+
+    const [displayMore, setDisplayMore] = useState(6)
 
     // Define handleAddEntry function
     const handleAddEntry = async (sectionName, professor, id, title, startDate, seats) => {
@@ -34,22 +36,32 @@ const Form = () => {
         // Attempt a PUT request to update targetCourses when handleAddEntry function is called
         try {
             // Get current user targetCourses array and update with the newEntry object
+
+            let url = `http://localhost:5000/api/students/${user.studentId}`
             const updatedTargetCourses = [...user.targetCourses, newEntry];
 
-            // PUT Request to update targetCourses in the database
-            await fetch(`http://localhost:5000/api/students/${user.studentId}`, {
-                method: "PUT",
+            let payload = {
+                studentId: user.studentId,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                password: user.password,
+                targetCourses: updatedTargetCourses
+            }
+
+            let options = {
+                method: 'PUT',
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({
-                    user, // Spread all user properties...
-                    targetCourses: updatedTargetCourses // Update targetCourses only
-                }) // Update targetCourses in the database
-            });
+                body: JSON.stringify(payload)
+            }
+
+            // PUT Request to update targetCourses in the database
+            await fetch(url, options)
 
             // Set the current user information with the targetCourses array updated locally
-            setUser(prevUser => ({ ...prevUser, targetCourses: updatedTargetCourses }));
+            // setUser(prevUser => ({ ...prevUser, targetCourses: updatedTargetCourses }));
 
             console.log("Target courses updated successfully");
 
@@ -85,13 +97,14 @@ const Form = () => {
                         availableSeats={course.availableSeats}
                         term={course.term}
                         faculty={course.faculty}
-                        handleAddEntry={handleAddEntry} 
+                        handleAddEntry={handleAddEntry}
                     />
                 ));
 
                 // All Courses Displayed from search term
                 setFilteredCourseData(mappedFilteredCourseData);
                 setLoading(false); // Set loading state to false when data fetching is done
+                setDisplayMore(6)
 
             } catch (error) {
                 console.error('Error fetching courses:', error);
@@ -101,6 +114,8 @@ const Form = () => {
 
         fetchData(); // Call the async function immediately
     }, [selectedTerm, searchTerm, user.studentId]);
+
+    const displayedCourses = filteredCourseData.slice(0, displayMore);
 
     return (
         <section id="form-section" className={`${sectionWidth} h-auto flex flex-col items-center`}>
@@ -133,14 +148,29 @@ const Form = () => {
             </div>
 
             <div id="classes-container" className={`grid ${loading ? 'grid-cols-1' : 'grid-cols-2'} md:grid-cols-1 gap-4 max-w-[800px] w-full p-8 mt-4 sm:p-2 z-[.2] rounded ${darkMode ? "bg-[#F8F8FF]" : " text-fontDarkMode"}`}>
-                {loading ? ( // Render loading spinner if loading is true
+                {loading ? (
+                    // Render loading spinner if loading is true
                     <div className="w-full flex justify-center items-center">
                         <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-bgGrayBtn"></div>
                     </div>
                 ) : (
-                    searchTerm.length < 3 ? <div className="w-full"><span className="text-center">Minimum of 3 characters required</span></div> : filteredCourseData.length < 1 ? "No courses found" : filteredCourseData
+                    searchTerm.length < 3 ? (
+                        <div className="w-full"><span className="text-center">Minimum of 3 characters required</span></div>
+                    ) : filteredCourseData.length < 1 ? (
+                        "No courses found"
+                    ) : (
+                        displayedCourses // Render only the courses up to the display count
+                    )
                 )}
             </div>
+
+            {loading === false && searchTerm.length >= 3 && filteredCourseData.length > displayMore && (
+                <div className="text-center mt-4">
+                    <button className={`${buttonStyled} px-4 bg-primary text-light`} onClick={() => setDisplayMore(prev => prev += 6)}>
+                        Load More
+                    </button>
+                </div>
+            )}
         </section>
     )
 }

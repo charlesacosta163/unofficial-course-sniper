@@ -40,7 +40,7 @@ const Navbar = () => {
                 
                 <Link to='/settings'>
                     <div id="menu-item" className="text-[1.5rem] transition hover:translate-y-[-3px]">
-                        <IoSettingsOutline />
+                        <IoSettingsOutline className="hover:rotate-45"/>
                     </div>
                 </Link>
 
@@ -58,7 +58,7 @@ const Navbar = () => {
 
                 <Link to='/login'>
                     <div id="menu-item">
-                        <button className="bg-green text-light px-4 py-2 rounded duration-300 hover:bg-greenHovered" onClick={handleLogout}>Log Out</button>
+                        <button className="bg-green text-light px-4 py-2 rounded duration-300 hover:bg-greenHovered hover:rounded-[20px]" onClick={handleLogout}>Log Out</button>
                     </div>
                 </Link>
 

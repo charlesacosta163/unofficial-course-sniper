@@ -64,7 +64,7 @@ app.get('/api/students/:id', async (req, res) => {
     const data = await student.json();
 
     res.json(data);
-    
+
   } catch (error) {
     console.error('Error fetching student information:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -73,21 +73,17 @@ app.get('/api/students/:id', async (req, res) => {
 
 
 // Updates the target courses for the user
-app.put('api/students/:id', async (req, res) => {
+app.put('/api/students/:id', async (req, res) => {
   try {
-    const {
-      body,
-      params: { id }
-    } = req
+    const id = req.params.id
+    const { body } = req
 
-    const studentId = parseInt(id)
-
-    const response = await fetch(`https://psyched-camp-404208.nn.r.appspot.com/course-sniper/api/students/${studentId}`, {
+    const response = await fetch(`https://psyched-camp-404208.nn.r.appspot.com/course-sniper/api/students/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({...body})
+      body: JSON.stringify(body)
     });
 
     if (response.ok) {
@@ -137,6 +133,18 @@ app.post("/api/students", async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 
+})
+
+app.delete('/api/students/:id', async (req, res) => {
+  try {
+  const { id } = req.params
+
+  return res.json({message: id})
+
+  } catch (err) {
+
+    res.status(500).json({message: "Unsuccessful deletion of account!"})
+  }
 })
 
 // Start the server

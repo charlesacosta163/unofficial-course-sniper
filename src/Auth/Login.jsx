@@ -58,7 +58,7 @@ const Login = () => {
           </div>
           <div>Don't have an account? <Link to="/createacc" className="underline font-[500]">Sign Up</Link></div>
 
-          <div className="w-full"><button onClick={handleLogin} className={`${buttonStyled} text-[1rem] bg-primary text-light duration-300 hover:bg-bgDarkPrimary`}>Login</button></div>
+          <div className="w-full"><button onClick={handleLogin} className={`${buttonStyled} text-[1rem] bg-primary text-light duration-300 hover:bg-bgDarkPrimary hover:rounded-[20px]`}>Login</button></div>
           <p id="auth-msg" className="text-[#ff0000] font-bold"></p>
           <div className="text-[#20A8FF]"><Link to='/forgotpassword'>Forgot Password</Link></div>
         </div>
