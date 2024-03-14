@@ -62,5 +62,5 @@ Begin by forking this repository to your GitHub account.
 2. `npm run backend`: Use this command to run the Express.js backend server.
 
 ### Accessing the Application
-Once the servers are running, you can access the application in your web browser. The client-side server typically runs on http://localhost:5000, while the Express.js backend may run on a different port (check code).
+Once the servers are running, you can access the application in your web browser. The client-side server typically runs on localhost, while the Express.js backend may run on a different port (check code).
 
