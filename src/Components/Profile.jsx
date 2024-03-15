@@ -17,18 +17,23 @@ const Profile = () => {
         try {
             if(password === user.password) {
                 
-                // API needs to be fixed
+                // Implementation (not working)
                 const response = await fetch(`http://localhost:5000/api/students/${user.studentId}`, {
                     method: "DELETE"
                 })
-
-                const data = await response.json()
-                console.log(data);
-
+                
+                // If deleted, automatic logout, check console
+                if (response.ok) {
+                    setUser(null)
+                    console.log("Account deleted");
+                }
+                
+                else
+                    console.log("Something went wrong");
             }
             else {
                 console.log("Not matched")
-                console.log(user.password);
+                console.log(user.password); // Display PW in console for testing
             }
         } catch (err) {
             console.log(err.message);

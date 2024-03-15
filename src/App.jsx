@@ -37,14 +37,7 @@ function App() {
   }
   */
 
-  const [user, setUser] = useState({
-    studentId: 4,
-    firstName: 'Charles',
-    lastName: 'Fake',
-    email: 'fakecharles163@gmail.com',
-    password: '$2a$10$iZ/vo72rUiNW4RAFZFNlduZ3jVtAVZLMOPqY0Krz5.15nenMsNBMG',
-    targetCourses: []
-  })
+  const [user, setUser] = useState(null)
   const userObj = { user, setUser }
 
   const navigate = useNavigate();

@@ -40,6 +40,7 @@ const Form = () => {
             let url = `http://localhost:5000/api/students/${user.studentId}`
             const updatedTargetCourses = [...user.targetCourses, newEntry];
 
+            // updated JSON object to be parsed
             let payload = {
                 studentId: user.studentId,
                 firstName: user.firstName,

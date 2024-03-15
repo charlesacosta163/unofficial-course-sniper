@@ -1,0 +1,36 @@
+EXISTING USERS IN DB
+
+[
+    {
+        "studentId": 1,
+        "firstName": "Kyrollos",
+        "lastName": "Girgis",
+        "email": "kyrollosmg0380@my.middlesexcc.edu",
+        "password": "P@ssw0rd5528%",
+        "targetCourses": []
+    },
+    {
+        "studentId": 4,
+        "firstName": "Charles",
+        "lastName": "Fake",
+        "email": "fakecharles163@gmail.com",
+        "password": "$2a$10$iZ/vo72rUiNW4RAFZFNlduZ3jVtAVZLMOPqY0Krz5.15nenMsNBMG",
+        "targetCourses": []
+    },
+    {
+        "studentId": 5,
+        "firstName": "Matt",
+        "lastName": "Sharp",
+        "email": "weezy95@gmail.com",
+        "password": "$2a$10$/Vmjv6P7lhZuDltL2KOVvuxELhH1TCNLKyrSzyrka5OLSojO2Yf7e",
+        "targetCourses": []
+    },
+    {
+        "studentId": 6,
+        "firstName": "John",
+        "lastName": "Johnson",
+        "email": "jjonson@gmail.com",
+        "password": "$2a$10$x6nWq63HbmIYI5x4kMA5fOzz76AJ6Q/8jD7S3vcs.BHzfJcOhSM6a",
+        "targetCourses": []
+    }
+]

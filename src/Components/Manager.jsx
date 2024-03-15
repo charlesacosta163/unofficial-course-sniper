@@ -27,6 +27,7 @@ const Manager = () => {
 
   // Will Soon implement PUT and DELETE Requests in this User Course Sniped Table
 
+  // This gets the targetCourses from the student's database and displays in the Manager section
   const allClassData = user.targetCourses.map((course, index) => (
     <Entry
       key={index}

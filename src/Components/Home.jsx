@@ -21,7 +21,7 @@ const Home = () => {
 
                 <div id='card' className={`${darkMode ? "bg-light" : "bg-bgDarkSecondary text-fontDarkMode"} w-[300px] rounded-[20px] shadow-xl hover:translate-y-[-0.5rem]`}>
 
-                    <img src="https://middlesexcollege.edu/wp-content/themes/middlesex-college/assets/images/jpg/winter-2024-classes.jpg" alt="" className={`rounded-t-[20px] w-full h-[200px]`} />
+                    <img src="https://www.middlesexcc.edu/wp-content/uploads/2022/04/quo-vadis-wins-njpa-awards.jpg" alt="" className={`rounded-t-[20px] w-full h-[200px]`} />
 
                     <div id="description" className='p-4 flex flex-col gap-4'>
                         <p>For students who are in the process of registering for classes</p>

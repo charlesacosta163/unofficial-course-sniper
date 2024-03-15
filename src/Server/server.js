@@ -16,11 +16,13 @@ app.use(cors());
 // Enable express.json
 app.use(express.json())
 
-// Fetch all courses via search term
+const API_URL = 'https://psyched-camp-404208.nn.r.appspot.com/course-sniper/'
+
+// Fetch all courses via search term (WORKING)
 app.get('/api/courses/search', async (req, res) => {  // Course search endpoint
   const { title } = req.query;   // Gets the user's search term
   console.log('Search term:', title); // Log the search term received from the client
-  const url = 'https://psyched-camp-404208.nn.r.appspot.com/course-sniper/api/courses/search'
+  const url = `${API_URL}api/courses/search`
 
   try {
     const response = await fetch(url + "?" + new URLSearchParams({ title, page: 0, size: 10 }))
@@ -43,10 +45,10 @@ app.get('/api/courses/search', async (req, res) => {  // Course search endpoint
   }
 });
 
-// Fetch all users
+// Fetch all users (WORKING)
 app.get("/api/students", async (req, res) => {
   try {
-    const response = await fetch('https://psyched-camp-404208.nn.r.appspot.com/course-sniper/api/students')
+    const response = await fetch(`${API_URL}api/students`)
     const data = await response.json();
     res.json(data);
   } catch (error) {
@@ -55,12 +57,12 @@ app.get("/api/students", async (req, res) => {
 })
 
 
-// Fetch the user's info 
+// Fetch the user's info (WORKING)
 app.get('/api/students/:id', async (req, res) => {
   try {
     const studentId = parseInt(req.params.id);
 
-    const student = await fetch(`https://psyched-camp-404208.nn.r.appspot.com/course-sniper/api/students/${studentId}`);
+    const student = await fetch(`${API_URL}api/students/${studentId}`);
     const data = await student.json();
 
     res.json(data);
@@ -72,13 +74,13 @@ app.get('/api/students/:id', async (req, res) => {
 });
 
 
-// Updates the target courses for the user
+// Updates the target courses for the user (NOT WORKING)
 app.put('/api/students/:id', async (req, res) => {
   try {
     const id = req.params.id
     const { body } = req
 
-    const response = await fetch(`https://psyched-camp-404208.nn.r.appspot.com/course-sniper/api/students/${id}`, {
+    const response = await fetch(`${API_URL}api/students/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -102,13 +104,13 @@ app.put('/api/students/:id', async (req, res) => {
 })
 
 
-// Creating accounts endpoint
+// Creating accounts endpoint (WORKING)
 
 app.post("/api/students", async (req, res) => {
   try {
     const { body } = req
     // Make HTTP request to save student data
-    const response = await fetch('https://psyched-camp-404208.nn.r.appspot.com/course-sniper/api/students', {
+    const response = await fetch(`${API_URL}api/students`, {
       method: "POST",
       headers: {
         "Content-Type": 'application/json'
@@ -135,11 +137,21 @@ app.post("/api/students", async (req, res) => {
 
 })
 
+// DELETE account in Profile.jsx (NOT WORKING)
 app.delete('/api/students/:id', async (req, res) => {
   try {
   const { id } = req.params
 
-  return res.json({message: id})
+  const response = await fetch(`${API_URL}api/students/${id}`, {
+    method: "DELETE"
+  })
+
+
+  if (response.ok) {
+    return res.sendStatus(204);
+  } else {
+    throw new Error('Failed to delete account');
+  }
 
   } catch (err) {
 

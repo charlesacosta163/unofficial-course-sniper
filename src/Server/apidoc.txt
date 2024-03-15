@@ -1,4 +1,3 @@
-
 API Documentation
 =================
 https://psyched-camp-404208.nn.r.appspot.com/course-sniper/
@@ -103,14 +102,69 @@ Target Course Controller
 - GET /api/target-courses/student/{studentId}
   Retrieves target courses for a student by student ID.
   Path Variable: studentId (Integer)
-  Response: List of TargetCourse objects
+  Response: List of TargetCourseDTO objects
 
 - POST /api/target-courses
-  Adds a new target course.
-  Request Body: TargetCourse object
-  Response: Saved TargetCourse object
+  Adds a new target course, associating it with specific student and course entities.
+  Request Body: { "student": { "studentId": 1 }, "course": { "id": 101 } }
+  Response: Saved TargetCourseDTO object with populated student and course details
+
+- PUT /api/target-courses/student/{studentId}
+  Updates target courses for a student by adding new ones based on provided course IDs or updating existing ones.
+  Path Variable: studentId (Integer)
+  Request Body: List of courseIds [101, 102, 103]
+  Response: List of updated TargetCourseDTO objects
 
 - DELETE /api/target-courses/{id}
   Deletes a target course by its ID.
   Path Variable: id (int)
   Response: Confirmation of deletion
+Find Courses with Pagination
+
+Endpoint: GET /pagination/{offset}/{pageSize}
+
+Description: Fetches a paginated list of courses. This endpoint allows clients to retrieve courses in subsets, making it suitable for large datasets.
+
+Path Variables:
+offset: The starting index from which to fetch the courses. The first page starts at 0.
+pageSize: The number of courses to fetch in one page.
+
+Responses:
+200 OK: Successfully retrieved the paginated list of courses. The response body contains a Page object encapsulating the courses in the current page, along with pagination information like total pages, current page number, total courses available, etc.
+204 No Content: No courses are available within the specified range or at all.
+400 Bad Request: The provided offset or pageSize parameters are invalid (e.g., negative numbers).
+
+Example Request: GET /pagination/0/10
+
+Example Response:
+{
+    "content": [
+        {
+            "id": 1,
+            "name": "Algorithms",
+            "description": "Introduction to Algorithms",
+            "startDate": "2024-01-15",
+            "endDate": "2024-05-15"
+        },
+        {
+            "id": 2,
+            "name": "Data Structures",
+            "description": "Data Structures fundamentals",
+            "startDate": "2024-02-01",
+            "endDate": "2024-06-01"
+        }
+    ],
+    "totalPages": 5,
+    "totalElements": 50,
+    "last": false,
+    "size": 10,
+    "number": 0,
+    "sort": {
+        "sorted": false,
+        "unsorted": true,
+        "empty": true
+    },
+    "numberOfElements": 10,
+    "first": true,
+    "empty": false
+}
