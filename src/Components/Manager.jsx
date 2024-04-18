@@ -1,12 +1,15 @@
 import { sectionWidth, buttonStyled } from "../styles";
 import Entry from "../Items/Entry";
-import { UserContext } from "../App";
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { HiOutlineTrash } from "react-icons/hi";
 
+import { UserContext, ArrayContext } from "../App";
+
 const Manager = () => {
   const { user, setUser } = useContext(UserContext);
+  const { classes, setClasses } = useContext(ArrayContext)
+  
   const [selectedEntries, setSelectedEntries] = useState([]);
 
   const handleCheckboxChange = (id) => {
@@ -18,17 +21,15 @@ const Manager = () => {
   };
 
   const handleRemoveSelected = () => {
-    const updatedCourses = user.targetCourses.filter(
+    const updatedCourses = classes.filter(
       (_, index) => !selectedEntries.includes(index)
     );
-    setUser({ ...user, targetCourses: updatedCourses });
+    setClasses(updatedCourses)
     setSelectedEntries([]);
   };
 
-  // Will Soon implement PUT and DELETE Requests in this User Course Sniped Table
-
   // This gets the targetCourses from the student's database and displays in the Manager section
-  const allClassData = user.targetCourses.map((course, index) => (
+  const allClassData = classes.map((course, index) => (
     <Entry
       key={index}
       id={index}
@@ -79,7 +80,7 @@ const Manager = () => {
           {allClassData}
         </div>
 
-        {user.targetCourses.length === 0 && (
+        {classes.length === 0 && (
           <div className="py-8 flex flex-col items-center">
             <img
               src="https://evie.undraw.co/images/undraw_creation.svg"

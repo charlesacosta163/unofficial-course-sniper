@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { Link, useNavigate } from 'react-router-dom'
-import { DarkContext, UserContext } from "../App";
+import { DarkContext, UserContext, NotifsContext } from "../App";
 
 import { IoSettingsOutline } from "react-icons/io5";
 import { FiUser } from "react-icons/fi";
@@ -10,15 +10,11 @@ import { MdOutlineLocalLibrary } from "react-icons/md";
 
 const Navbar = () => {
     const [show, setShow] = useState(null);
-    const {darkMode} = useContext(DarkContext)
+    const { darkMode } = useContext(DarkContext)
     const { user, setUser } = useContext(UserContext)
+    const { notifications, setNotifications } = useContext(NotifsContext)
 
     const navigate = useNavigate()
-
-    const handleLogout = () => {
-        setUser(null)
-        navigate('/login')
-    }
 
     return (
         <nav className={`flex justify-between px-8 sm:px-4 items-center py-4 bg-slate-50 ${darkMode ? "bg-light" : "bg-bgDarkFooter text-fontDarkMode"}`}>
@@ -32,15 +28,23 @@ const Navbar = () => {
 
             <div id="menus" className="flex gap-6 items-center sm:hidden">
 
+                <span className="bg-bgDarkSecondary text-light px-4 py-2 rounded-[30px]">Hello <span className="font-bold">{user.firstName}</span>!</span>
                 <Link to='/manager'>
                     <div id="menu-item" className="text-[1.5rem] transition hover:translate-y-[-3px]">
                         <MdOutlineLocalLibrary />
                     </div>
                 </Link>
-                
+
                 <Link to='/settings'>
                     <div id="menu-item" className="text-[1.5rem] transition hover:translate-y-[-3px]">
-                        <IoSettingsOutline className="hover:rotate-45"/>
+                        <IoSettingsOutline className="hover:rotate-45" />
+                    </div>
+                </Link>
+
+                <Link to='/notifications'>
+                    <div id="menu-item" className=" relative text-[1.5rem] transition hover:translate-y-[-3px]">
+                        <FaRegBell />
+                        {notifications.length > 0 && <div className="w-[15px] h-[15px] rounded-full absolute top-[-5px] right-[-3px] bg-[#ff0000] text-xs text-[#fff] flex justify-center items-center">{notifications.length}</div>}
                     </div>
                 </Link>
 
@@ -50,29 +54,25 @@ const Navbar = () => {
                     </div>
                 </Link>
 
-                <Link to='/notifications'>
-                    <div id="menu-item" className="text-[1.5rem] transition hover:translate-y-[-3px]">
-                        <FaRegBell />
-                    </div>
-                </Link>
-
-                <Link to='/login'>
-                    <div id="menu-item">
-                        <button className="bg-green text-light px-4 py-2 rounded duration-300 hover:bg-greenHovered hover:rounded-[20px]" onClick={handleLogout}>Log Out</button>
-                    </div>
-                </Link>
-
             </div>
 
-            <div id="burger" className="hidden sm:block">
+            <div className="hidden sm:flex gap-6 items-center">
+
+                <Link to='/notifications'>
+                    <div id="menu-item" className=" relative text-[1.5rem] transition hover:translate-y-[-3px]">
+                        <FaRegBell />
+                        {notifications.length > 0 && <div className="w-[15px] h-[15px] rounded-full absolute top-[-5px] right-[-3px] bg-[#ff0000] text-xs text-[#fff] flex justify-center items-center">{notifications.length}</div>}
+                    </div>
+                </Link>
                 <button className='text-[1.5rem]' onClick={() => setShow(true)}><HiMiniBars3BottomRight /></button>
             </div>
+
 
             <div id="menus" className={`${show ? 'slide-in' : 'slide-out'} hidden flex-col h-screen w-[300px] ${darkMode ? "bg-light [&>.link]:bg-gray" : "bg-bgDarkFooter text-fontDarkMode [&>.link]:bg-bgGrayBtn"} gap-4 sm:flex fixed top-0 p-8 `}>
 
                 <div className="flex justify-between items-center">
                     <button onClick={() => setShow(false)} className="text-[2rem]"><HiOutlineXMark /></button>
-                    <h2 className="text-[2rem] font-bold">Options</h2>
+                    <h2 className="text-[2rem] font-bold text-bgDarkSecondary">Options</h2>
                 </div>
 
                 <Link to='/profile' className="link rounded">
@@ -88,13 +88,6 @@ const Navbar = () => {
                         <div>Your Snipes</div>
                     </div>
                 </Link>
-                
-                <Link to="/notifications" className="link rounded">
-                    <div id="menu-item" className="flex gap-4 items-center py-2 px-4 rounded" onClick={() => setShow(false)}>
-                        <FaRegBell />
-                        <div>Notifications</div>
-                    </div>
-                </Link>
 
                 <Link to='/settings' className="link rounded">
                     <div id="menu-item" className="flex gap-4 items-center py-2 px-4 rounded" onClick={() => setShow(false)}>
@@ -103,11 +96,11 @@ const Navbar = () => {
                     </div>
                 </Link>
 
-                <Link to='/login'>
+                {/* <Link>
                     <div id="menu-item" className="bg-green py-1 px-2 rounded text-center" onClick={() => setShow(false)}>                    
-                        <button className="bg-green text-light px-4 py-2 rounded" onClick={handleLogout}>Log Out</button>
+                        <button className="bg-green text-light px-4 py-2 rounded" onClick={handleLogout} disabled>Log Out</button>
                     </div>
-                </Link>
+                </Link> */}
 
             </div>
 

@@ -19,9 +19,9 @@ const Footer = () => {
                 <div id="links" className='flex flex-col gap-4'>
                     <h1 className='font-[500] text-[1.25rem]'>About</h1>
 
-                    <Link className='hover:underline'>Middlesex College</Link>
-                    <Link className='hover:underline'>Join Us</Link>
-                    <Link className='hover:underline'>Clubs</Link>
+                    <Link className='hover:underline' to='https://middlesexcollege.edu/'>Middlesex College</Link>
+                    <Link className='hover:underline' to='https://middlesexcollege.edu/admissions/'>Join Us</Link>
+                    <Link className='hover:underline' to='https://middlesexcollege.edu/student-life/clubs-and-organizations/'>Clubs</Link>
 
                 </div>
 
@@ -29,11 +29,11 @@ const Footer = () => {
                     <h1 className='font-[500] text-[1.25rem]'>Socials</h1>
 
                     <div className='flex gap-4 items-center'>
-                        <Link className='hover:underline text-[1.5rem]'><RiDiscordLine /></Link>
-                        <Link className='hover:underline text-[1.5rem]'><FaInstagram /></Link>
-                        <Link className='hover:underline text-[1.5rem]'><FaLinkedinIn /></Link>
-                        <Link className='hover:underline text-[1.5rem]'><FaXTwitter /></Link>
-                        <Link className='hover:underline text-[1.5rem]'><FaFacebookF /></Link>
+                        <Link className='hover:underline text-[1.5rem]' to='https://discord.com/channels/882703639775432717/882703639775432718'><RiDiscordLine /></Link>
+                        <Link className='hover:underline text-[1.5rem]' to='https://www.instagram.com/middlesexcollegenj/?hl=en'><FaInstagram /></Link>
+                        <Link className='hover:underline text-[1.5rem]' to='https://www.linkedin.com/school/middlesexcollege/'><FaLinkedinIn /></Link>
+                        <Link className='hover:underline text-[1.5rem]' to='https://twitter.com/MiddlesexCollNJ?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor'><FaXTwitter /></Link>
+                        <Link className='hover:underline text-[1.5rem]' to='https://www.facebook.com/middlesexcollegenj/'><FaFacebookF /></Link>
 
                     </div>
 

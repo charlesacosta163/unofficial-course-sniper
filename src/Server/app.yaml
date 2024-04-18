@@ -1,0 +1,5 @@
+runtime: nodejs20
+
+env_variables:
+  API_URL: 'https://psyched-camp-404208.nn.r.appspot.com/course-sniper/'
+

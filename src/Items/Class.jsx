@@ -29,7 +29,7 @@ const Class = ({ id, sectionName, title, startDate, availableSeats, term, facult
             <div className="right flex flex-col justify-between items-end text-right">
                 <div>
                     <div>{term}</div>
-                    <div>{faculty}</div>
+                    <div>{faculty.trim() === "" ? "TBA" : faculty}</div>
                 </div>
                 <div>
                     <Link to='/manager'>

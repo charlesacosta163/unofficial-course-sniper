@@ -2,24 +2,19 @@ import React, { useState } from 'react';
 import { sectionWidth, headerText } from '../styles';
 import { HiOutlineXMark } from 'react-icons/hi2';
 
-import { DarkContext } from '../App';
+import { DarkContext, NotifsContext } from '../App';
 import { useContext } from 'react';
 
 
 const Notifications = () => {
     const { darkMode } = useContext(DarkContext);
-  const [notifs, setNotifs] = useState([
-    "CSC-236-09 is still up for grabs!",
-    "BIO-131-02 is full already!",
-    "Thanks for creating a new account, add a class to snipe now.",
-  ]);
-
+    const { notifications, setNotifications } = useContext(NotifsContext)
   const handleDelete = (id) => {
-    const updatedNotifs = notifs.filter((_, index) => index !== id);
-    setNotifs(updatedNotifs);
+    const updatedNotifs = notifications.filter((_, index) => index !== id);
+    setNotifications(updatedNotifs);
   };
 
-  const notifsData = notifs.map((message, id) => {
+  const notifsData = notifications.map((message, id) => {
     return <Notif key={id} id={id} message={message} onDelete={() => handleDelete(id)} />;
   });
 
@@ -27,7 +22,7 @@ const Notifications = () => {
     <section id="notifs-section" className={`${sectionWidth} pt-16 sm:pt-8 h-auto flex flex-col justify-center items-left ${darkMode == false && "text-fontDarkMode"}`}>
       <h1 className={`${headerText} text-left pb-8`}>Your Feed</h1>
       <div id="notifs-container" className={`flex flex-col gap-4 w-full rounded`}>
-        {notifs.length === 0 ? 'You have no notifications' : notifsData}
+        {notifications.length === 0 ? 'You have no notifications' : notifsData}
       </div>
     </section>
   );

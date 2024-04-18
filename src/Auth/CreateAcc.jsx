@@ -16,18 +16,12 @@ const CreateAcc = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [isMatch, setIsMatch] = useState(true)
 
-  const navigate = useNavigate()
+  const [errors, setErrors] = useState(null)
 
-  // local data testing
-  // fetch('../src/students.json') 
+  const navigate = useNavigate()
 
   const handleCreateAccount = async () => {
     try {
-        // Makes sure all input fields are filled
-        if (!newEmail || !newPassword || !newFName || !newLName || !isMatch) {
-            console.log('Please fill in all fields correctly');
-            return;
-        }
 
         // Fetch to attempt post request of creating a new account
         const response = await fetch('http://localhost:5000/api/students', {
@@ -44,11 +38,20 @@ const CreateAcc = () => {
             }),
         });
 
-        if (response.ok) {
+        const data = await response.json()
+
+        if (response.ok && isMatch) {
             console.log('Account created successfully');
             navigate('/login'); // Navigate to login page when account creation is successful
         } else {
-            console.log('Failed to create account', response.status);
+            console.log(data);
+            const errMessages = data.errors.map((e, i) => {
+              return (
+                <span key={i} className="text-sm text-[#ff0000]">{e.msg}</span>
+              )
+            })
+
+            setErrors(errMessages)
         }
     } catch (error) {
         console.error('Error creating account:', error);
@@ -61,7 +64,7 @@ const CreateAcc = () => {
   }, [newPassword, confirmPassword]);
 
   return (
-    <section id="createAcc-section" className={`${sectionWidth} h-[100svh] flex justify-center items-center`}>
+    <section id="createAcc-section" className={`${sectionWidth} h-auto flex justify-center items-center pt-16`}>
 
       <div id="createAcc-container" className={`max-w-[400px] w-full flex flex-col items-center gap-4 p-8 shadow-md rounded-[20px] ${darkMode ? "bg-light" : "bg-bgDarkSecondary [&>*]:text-fontDarkMode"}`}>
 
@@ -71,11 +74,11 @@ const CreateAcc = () => {
         <div className="forms flex flex-col gap-4 w-full">
 
           <div className="flex gap-4 w-full">
-            <FormField name='First Name' placeholder="@firstname" type='text' setInput={e => setNewFName(e.target.value)} />
-            <FormField name='Last Name' placeholder="@lastname" type='text' setInput={e => setNewLName(e.target.value)} />
+            <FormField name='First Name' placeholder="e.g John" type='text' setInput={e => setNewFName(e.target.value)} />
+            <FormField name='Last Name' placeholder="e.g Doe" type='text' setInput={e => setNewLName(e.target.value)} />
           </div>
           <FormField name='Email' placeholder="@email" type='email' setInput={e => setNewEmail(e.target.value)} />
-          <FormField name='Password' placeholder="@password" type='password' setInput={e => {
+          <FormField name='Password (minimum of 7 characters)' placeholder="password" type='password' setInput={e => {
             setNewPassword(e.target.value)
             setIsMatch(e.target.value === confirmPassword);
           }} />
@@ -84,6 +87,15 @@ const CreateAcc = () => {
           {isMatch ? "" : (
             <div className="text-[#ff0000] text-center">Passwords must match</div>
           )}
+
+
+          {
+            errors && (
+              <div className="flex flex-col gap-2">
+                {errors}
+              </div>
+            )
+          }
 
         </div>
 

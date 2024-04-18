@@ -18,6 +18,8 @@ import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom'
 
 export const DarkContext = createContext(false);
 export const UserContext = createContext(null)
+export const ArrayContext = createContext(null)
+export const NotifsContext = createContext(null)
 
 function App() {
 
@@ -40,6 +42,12 @@ function App() {
   const [user, setUser] = useState(null)
   const userObj = { user, setUser }
 
+  const [classes, setClasses] = useState([])
+  const arrayObj = { classes, setClasses }
+
+  const [notifications, setNotifications] = useState([])
+  const allNotifs = { notifications, setNotifications }
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -59,45 +67,50 @@ function App() {
 
   // UserContext = user object
   // DarkContext = dark mode
+  // ArrayContext = user's sniped classes
 
   return (
     <UserContext.Provider value={userObj}>
-      <DarkContext.Provider value={modeValue}>
-        <Fragment>
-          <div className="">
-            {!isExcludedRoute && (
-              <header>
-                <Navbar />
-              </header>
-            )}
+      <ArrayContext.Provider value={arrayObj}>
+        <NotifsContext.Provider value={allNotifs}>
+          <DarkContext.Provider value={modeValue}>
+            <Fragment>
+              <div className="">
+                {!isExcludedRoute && (
+                  <header>
+                    <Navbar />
+                  </header>
+                )}
 
-            <main>
+                <main>
 
-              <Routes>
+                  <Routes>
 
-                {/* Public Routes */}
-                <Route path="/login" element={<section className={`${wrapperWidth}`}><Login /></section>} />
-                <Route path="/createacc" element={<section className={`${wrapperWidth}`}><CreateAcc /></section>} />
-                <Route path="/forgotpassword" element={<section className={`${wrapperWidth}`}><ForgotPassword /></section>} />
-                <Route path="*" element={<section className={`${wrapperWidth}`}><Error /></section>} />
+                    {/* Public Routes */}
+                    <Route path="/login" element={<section className={`${wrapperWidth}`}><Login /></section>} />
+                    <Route path="/createacc" element={<section className={`${wrapperWidth}`}><CreateAcc /></section>} />
+                    <Route path="/forgotpassword" element={<section className={`${wrapperWidth}`}><ForgotPassword /></section>} />
+                    <Route path="*" element={<section className={`${wrapperWidth}`}><Error /></section>} />
 
-                {/* Private Routes */}
+                    {/* Private Routes */}
 
-                <Route path='/' element={<PrivateRoute><section className={`${wrapperWidth}`}><Home /></section></PrivateRoute>} />
-                <Route path='/form' element={<PrivateRoute><section className={`${wrapperWidth}`}><Form /></section></PrivateRoute>} />
-                <Route path='/manager' element={<PrivateRoute><section className={`${wrapperWidth}`}><Manager /></section></PrivateRoute>} />
-                <Route path='/profile' element={<PrivateRoute><section className={`${wrapperWidth}`}><Profile /></section></PrivateRoute>} />
-                <Route path='/settings' element={<PrivateRoute><section className={`${wrapperWidth}`}><Settings setDarkMode={handleDarkMode} /></section></PrivateRoute>} />
-                <Route path='/notifications' element={<PrivateRoute><section className={`${wrapperWidth}`}><Notifications /></section></PrivateRoute>} />
+                    <Route path='/' element={<PrivateRoute><section className={`${wrapperWidth}`}><Home /></section></PrivateRoute>} />
+                    <Route path='/form' element={<PrivateRoute><section className={`${wrapperWidth}`}><Form /></section></PrivateRoute>} />
+                    <Route path='/manager' element={<PrivateRoute><section className={`${wrapperWidth}`}><Manager /></section></PrivateRoute>} />
+                    <Route path='/profile' element={<PrivateRoute><section className={`${wrapperWidth}`}><Profile /></section></PrivateRoute>} />
+                    <Route path='/settings' element={<PrivateRoute><section className={`${wrapperWidth}`}><Settings setDarkMode={handleDarkMode} /></section></PrivateRoute>} />
+                    <Route path='/notifications' element={<PrivateRoute><section className={`${wrapperWidth}`}><Notifications /></section></PrivateRoute>} />
 
-              </Routes>
+                  </Routes>
 
-            </main>
+                </main>
 
-          </div>
-        </Fragment>
-      </DarkContext.Provider>
-    </UserContext.Provider>
+              </div>
+            </Fragment>
+          </DarkContext.Provider>
+        </NotifsContext.Provider>
+      </ArrayContext.Provider>
+    </UserContext.Provider >
   )
 }
 

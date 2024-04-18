@@ -119,7 +119,10 @@ Target Course Controller
   Deletes a target course by its ID.
   Path Variable: id (int)
   Response: Confirmation of deletion
+
+
 Find Courses with Pagination
+-----------------------------
 
 Endpoint: GET /pagination/{offset}/{pageSize}
 
@@ -168,3 +171,6 @@ Example Response:
     "first": true,
     "empty": false
 }
+
+
+NEW STUFF

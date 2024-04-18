@@ -12,32 +12,48 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [status, setStatus] = useState(false)
+
   const navigate = useNavigate()
 
-  // Inside your component
-  useEffect(() => {
-    // From a local file, fetch("../src/students.json")
-    fetch("http://localhost:5000/api/students")
-      .then(res => res.json())
-      .then(json => {
-        const foundUser = json.find(user => user.email === email && user.password === password);
-        setUser(foundUser); 
+  async function handleLogin() {
+    console.log("in function");
+    setStatus(false)
+    document.getElementById('auth-msg').textContent = 'Logging in...';
+    try {
+      const response = await fetch("http://localhost:5000/api/students/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        })
       })
-      .catch(error => {
-        console.error('Error fetching user data:', error);
-      });
-  }, [email, password]); 
 
-  const handleLogin = () => {
-    if (user) {
-      console.log("Verified");
-      console.log(user);
-      navigate('/');
-    } else {
-      console.log("What the hell");
-      document.getElementById('auth-msg').textContent = 'Incorrect email or password';
+      if (response.ok) {
+
+        setTimeout(async () => {
+          const data = await response.json()
+          const user = data.user
+          console.log(`${data.msg} ${user}`);
+          setUser(user)
+          navigate('/');
+          document.getElementById('auth-msg').textContent = '';
+        }, 1000)
+      } else {
+        setStatus(true)
+        document.getElementById('auth-msg').textContent = 'Incorrect email or password';
+      }
+
+    } catch (err) {
+      console.log(err);
     }
-  };
+
+  }
+
+
   return (
     <section id="login-section" className={`${sectionWidth} h-[100svh] flex justify-center items-center overflow-y-hidden`}>
       <div className={`grid place-items-center md:flex justify-center grid-cols-2 md:grid-cols-1 max-w-[1000px] w-full shadow-md ${darkMode ? "bg-light" : "bg-bgDarkSecondary [&>*]:text-fontDarkMode"} p-8 md:p-0 rounded-[20px]`}>
@@ -59,7 +75,7 @@ const Login = () => {
           <div>Don't have an account? <Link to="/createacc" className="underline font-[500]">Sign Up</Link></div>
 
           <div className="w-full"><button onClick={handleLogin} className={`${buttonStyled} text-[1rem] bg-primary text-light duration-300 hover:bg-bgDarkPrimary hover:rounded-[20px]`}>Login</button></div>
-          <p id="auth-msg" className="text-[#ff0000] font-bold"></p>
+          <p id="auth-msg" className={`${status ? 'text-[#ff0000]' : 'text-[#000]'} font-bold`}></p>
           <div className="text-[#20A8FF]"><Link to='/forgotpassword'>Forgot Password</Link></div>
         </div>
 

@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { Link } from 'react-router-dom'
-import { UserContext, DarkContext } from "../App";
+import { UserContext, DarkContext, ArrayContext, NotifsContext } from "../App";
 import Class from "../Items/Class";
 import { FaArrowLeft } from "react-icons/fa6";
 import { sectionWidth, headerText, formStyled, buttonStyled } from "../styles";
@@ -8,6 +8,8 @@ import { sectionWidth, headerText, formStyled, buttonStyled } from "../styles";
 const Form = () => {
     const { darkMode } = useContext(DarkContext);
     const { user, setUser } = useContext(UserContext);
+    const { classes, setClasses } = useContext(ArrayContext)
+    const { notifications, setNotifications } = useContext(NotifsContext)
 
     const [selectedTerm, setSelectedTerm] = useState('fall');
     const [filteredCourseData, setFilteredCourseData] = useState([]);
@@ -17,7 +19,7 @@ const Form = () => {
     const [displayMore, setDisplayMore] = useState(6)
 
     // Define handleAddEntry function
-    const handleAddEntry = async (sectionName, professor, id, title, startDate, seats) => {
+    const handleAddEntry = (sectionName, professor, id, title, startDate, seats) => {
         const [name, section, number] = sectionName.split('-');
         console.log(user.studentId);
 
@@ -27,49 +29,16 @@ const Form = () => {
             code: name,
             section: section,
             number: number,
-            professor: professor,
+            professor: professor === " " ? "TBA" : professor,
             courseName: title,
             startDate: startDate,
             availableSeats: seats
         };
 
-        // Attempt a PUT request to update targetCourses when handleAddEntry function is called
-        try {
-            // Get current user targetCourses array and update with the newEntry object
-
-            let url = `http://localhost:5000/api/students/${user.studentId}`
-            const updatedTargetCourses = [...user.targetCourses, newEntry];
-
-            // updated JSON object to be parsed
-            let payload = {
-                studentId: user.studentId,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                password: user.password,
-                targetCourses: updatedTargetCourses
-            }
-
-            let options = {
-                method: 'PUT',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(payload)
-            }
-
-            // PUT Request to update targetCourses in the database
-            await fetch(url, options)
-
-            // Set the current user information with the targetCourses array updated locally
-            // setUser(prevUser => ({ ...prevUser, targetCourses: updatedTargetCourses }));
-
-            console.log("Target courses updated successfully");
-
-        } catch (error) {
-            console.log("Error", error);
-        }
+        setClasses([...classes, newEntry])
+        setNotifications([...notifications, <span>You sniped the course <span className="font-bold">{sectionName}</span></span>])
     }
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -130,20 +99,23 @@ const Form = () => {
                     <h1 className={`text-center ${headerText} sm:text-[1.5rem] text-light`}>Snipe A Class</h1>
                 </div>
 
-                <div className="select flex flex-col gap-4">
+                <div className="select flex sm:flex-col-reverse gap-4 w-full">
 
-                    <div className="text-dark">
-                        <label htmlFor="term" className="block text-xs font-[500] mb-2 text-light">Term</label>
-                        <select name="terms" value={selectedTerm} id="" onChange={e => setSelectedTerm(e.target.value)} className="rounded">
-                            <option value="fall">Fall 2023</option>
-                            <option value="spring">Spring 2024</option>
-                        </select>
-                    </div>
-
-                    <div className="w-full">
+                    <div className="flex flex-col w-full sm:justify-self-start">
                         <label htmlFor="class-section" className="block text-xs font-[500] mb-2 text-light">Course Title</label>
                         <input type="text" value={searchTerm} placeholder="e.g accounting/math" className={`${formStyled} rounded outline-none`} onChange={e => setSearchTerm(e.target.value)} required />
                     </div>
+
+                    <div className="text-dark flex-1 flex flex-col w-full">
+                        <label htmlFor="term" className="block text-xs font-[500] mb-2 text-light">Term</label>
+                        <select name="terms" value={selectedTerm} id="" onChange={e => setSelectedTerm(e.target.value)} className="rounded">
+                            <option value="fall">Fall 2024</option>
+                            <option value="spring">Spring 2024</option>
+                            <option value="summer i 2024">Summer I 2024</option>
+                            <option value="summer ii">Summer II 2024</option>
+                        </select>
+                    </div>
+
                 </div>
 
             </div>
