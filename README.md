@@ -54,8 +54,8 @@ This repository contains a project built with React.js and Express.js. Follow th
 ### Prerequisites
 Before getting started, make sure you have [**Node.js**](https://nodejs.org/en) and **npm** (comes with Node as well) installed on your system.
 
-### Fork this Repository
-Begin by forking this repository to your GitHub account.
+### Forking
+Begin by **forking this repository** to your GitHub account.
 
 ### Commands
 1. `npm run dev`: This command starts the client-side server for the React application.
