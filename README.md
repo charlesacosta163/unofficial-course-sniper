@@ -16,7 +16,10 @@ Employed for building the backend server to handle API requests and database ope
 1. **Fetch API**\
 Utilized for making HTTP requests from the client-side React application to the Express.js backend server.
 
-2. **Google Cloud Platform** (*Coming soon...*)\
+2. **Passport.js**\
+Utilized for processing authentication requests from the server and employing sessions and cookies for a specific user.
+
+3. **Google Cloud Platform** \
 Will host the Express.js backend server and deploy the application to the cloud platform.
 
 ## Summary
