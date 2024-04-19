@@ -2,4 +2,5 @@ runtime: nodejs20
 
 env_variables:
   API_URL: 'https://psyched-camp-404208.nn.r.appspot.com/course-sniper/'
+  EXPRESS_URL: "course-sniper-420515.uc.r.appspot.com/"
 

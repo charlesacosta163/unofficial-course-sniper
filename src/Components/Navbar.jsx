@@ -19,7 +19,7 @@ const Navbar = () => {
     return (
         <nav className={`flex justify-between px-8 sm:px-4 items-center py-4 bg-slate-50 ${darkMode ? "bg-light" : "bg-bgDarkFooter text-fontDarkMode"}`}>
 
-            <Link to="/">
+            <Link to="/dashboard">
                 <div id="logo" className="flex items-center gap-4" onClick={() => setShow(false)}>
                     <img src="https://www.njtransfer.org/images/logos/2615.png" alt="" width='75' className="rounded sm:w-[60px]" />
                     <div id='logo-name' className="text-[1.5rem] font-bold tracking-widest text-primary italic">SNIPER</div>
@@ -95,12 +95,6 @@ const Navbar = () => {
                         <div>Settings</div>
                     </div>
                 </Link>
-
-                {/* <Link>
-                    <div id="menu-item" className="bg-green py-1 px-2 rounded text-center" onClick={() => setShow(false)}>                    
-                        <button className="bg-green text-light px-4 py-2 rounded" onClick={handleLogout} disabled>Log Out</button>
-                    </div>
-                </Link> */}
 
             </div>
 

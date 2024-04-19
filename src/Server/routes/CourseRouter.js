@@ -6,6 +6,7 @@ import cors from 'cors';
 dotenv.config()
 
 const API_URL = process.env.API_URL
+const localURL = 'http://localhost:5000/'
 
 // Course Controller
 const router = Router()

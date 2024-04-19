@@ -5,6 +5,9 @@ import { useContext, useEffect, useState } from "react";
 
 import { DarkContext, UserContext } from "../App";
 
+const EXPRESS_URL = import.meta.env.VITE_EXPRESS_URL
+const localURL = 'http://localhost:5000/'
+
 const Login = () => {
   const { darkMode } = useContext(DarkContext);
   const { user, setUser } = useContext(UserContext)
@@ -21,7 +24,7 @@ const Login = () => {
     setStatus(false)
     document.getElementById('auth-msg').textContent = 'Logging in...';
     try {
-      const response = await fetch("http://localhost:5000/api/students/login", {
+      const response = await fetch(`${localURL}api/students/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -39,7 +42,7 @@ const Login = () => {
           const user = data.user
           console.log(`${data.msg} ${user}`);
           setUser(user)
-          navigate('/');
+          navigate('/dashboard');
           document.getElementById('auth-msg').textContent = '';
         }, 1000)
       } else {

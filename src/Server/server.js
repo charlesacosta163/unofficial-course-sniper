@@ -17,7 +17,14 @@ import cookieParser from 'cookie-parser';
 import "./strategies/local-strategy.js"
 
 dotenv.config()
+
 const app = express();
+
+// Allow requests from specific origin
+// const corsOptions = {
+//   origin: 'https://mcc-testsnipe.netlify.app/'
+// };
+
 
 // Enable CORS
 app.use(cors());

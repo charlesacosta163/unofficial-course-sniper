@@ -1,13 +1,17 @@
 import { buttonStyled, headerText, sectionWidth, showBorder, formStyled } from "../styles";
-import { UserContext, DarkContext, ArrayContext } from "../App";
+import { UserContext, DarkContext, ArrayContext, NotifsContext } from "../App";
 import { useContext, useEffect, useState } from "react";
 import { HiXMark } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 
+const EXPRESS_URL = import.meta.env.VITE_EXPRESS_URL
+const localURL = 'http://localhost:5000/'
+
 const Profile = () => {
     const { user, setUser } = useContext(UserContext);
     const { darkMode } = useContext(DarkContext);
-    const { classes } = useContext(ArrayContext)
+    const { classes, setClasses } = useContext(ArrayContext)
+    const { notifications, setNotifications } = useContext(NotifsContext) 
     const [profileProjects, setProfileProjects] = useState([]);
 
     const [showDelete, setShowDelete] = useState(false)
@@ -18,13 +22,15 @@ const Profile = () => {
 
     async function handleLogout() {
         try {
-            const response = await fetch("http://localhost:5000/api/students/logout")
+            const response = await fetch(`${localURL}api/students/logout`)
             const data = await response.json()
 
             if (response.ok) {
                 console.log(data.message);
                 setUser(null)
-                navigate("/login")
+                setClasses([])
+                setNotifications([])
+                navigate("/")
             }
             else
                 console.log("Logout failed");
@@ -39,7 +45,7 @@ const Profile = () => {
             if (password === user.password) {
 
                 // Implementation (not working)
-                const response = await fetch(`http://localhost:5000/api/students/${user.studentId}`, {
+                const response = await fetch(`${localURL}api/students/${user.studentId}`, {
                     method: "DELETE"
                 })
 
@@ -47,7 +53,7 @@ const Profile = () => {
                 if (response.ok) {
                     setUser(null)
                     console.log("Account deleted");
-                    window.location.href = '/login'
+                    window.location.href = '/'
                 }
 
                 else
@@ -113,7 +119,7 @@ const Profile = () => {
                                 <label htmlFor="" className="italic text-sm">Type <span className="font-bold">your password</span> to delete your account</label>
                                 <input type="password" placeholder="Password here" className={`${formStyled} bg-gray`} value={password} onChange={e => setPassword(e.target.value)} />
                                 <div className="">
-                                    <button className={`${buttonStyled} bg-[#ff0000] px-4 text-light duration-300 hover:rounded-[30px]`} onClick={handleDeleteAccount}>Submit</button>
+                                    <button className={`${buttonStyled} bg-[#ff0000] hover:bg-[#772727] px-4 text-light duration-300 hover:rounded-[30px]`} onClick={handleDeleteAccount}>Submit</button>
                                 </div>
 
                             </div>

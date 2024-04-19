@@ -13,7 +13,7 @@ import Manager from "./Components/Manager"
 import PrivateRoute from "./PrivateRoute"
 
 import { wrapperWidth } from "./styles"
-import { useState, createContext, Fragment } from "react"
+import { useState, createContext, Fragment, useEffect } from "react"
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom'
 
 export const DarkContext = createContext(false);
@@ -25,19 +25,6 @@ function App() {
 
   const [darkMode, setDarkMode] = useState(true)
   const modeValue = { darkMode, setDarkMode };
-
-  // User Set As the first student in the Actual DB
-
-  /*
-  {
-    studentId: 4,
-    firstName: 'Charles',
-    lastName: 'Fake',
-    email: 'fakecharles163@gmail.com',
-    password: '$2a$10$iZ/vo72rUiNW4RAFZFNlduZ3jVtAVZLMOPqY0Krz5.15nenMsNBMG',
-    targetCourses: []
-  }
-  */
 
   const [user, setUser] = useState(null)
   const userObj = { user, setUser }
@@ -51,7 +38,7 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isExcludedRoute = ['/login', '/createacc', '/forgotpassword'].includes(location.pathname);
+  const isExcludedRoute = ['/', '/createacc', '/forgotpassword'].includes(location.pathname);
 
   const handleDarkMode = () => {
     setDarkMode(prev => !prev);
@@ -87,14 +74,14 @@ function App() {
                   <Routes>
 
                     {/* Public Routes */}
-                    <Route path="/login" element={<section className={`${wrapperWidth}`}><Login /></section>} />
+                    <Route path="/" element={<section className={`${wrapperWidth}`}><Login /></section>} />
                     <Route path="/createacc" element={<section className={`${wrapperWidth}`}><CreateAcc /></section>} />
                     <Route path="/forgotpassword" element={<section className={`${wrapperWidth}`}><ForgotPassword /></section>} />
                     <Route path="*" element={<section className={`${wrapperWidth}`}><Error /></section>} />
 
                     {/* Private Routes */}
 
-                    <Route path='/' element={<PrivateRoute><section className={`${wrapperWidth}`}><Home /></section></PrivateRoute>} />
+                    <Route path='/dashboard' element={<PrivateRoute><section className={`${wrapperWidth}`}><Home /></section></PrivateRoute>} />
                     <Route path='/form' element={<PrivateRoute><section className={`${wrapperWidth}`}><Form /></section></PrivateRoute>} />
                     <Route path='/manager' element={<PrivateRoute><section className={`${wrapperWidth}`}><Manager /></section></PrivateRoute>} />
                     <Route path='/profile' element={<PrivateRoute><section className={`${wrapperWidth}`}><Profile /></section></PrivateRoute>} />

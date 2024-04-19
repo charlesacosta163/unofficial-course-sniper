@@ -5,6 +5,9 @@ import Class from "../Items/Class";
 import { FaArrowLeft } from "react-icons/fa6";
 import { sectionWidth, headerText, formStyled, buttonStyled } from "../styles";
 
+const EXPRESS_URL = import.meta.env.VITE_EXPRESS_URL
+const localURL = 'http://localhost:5000/'
+
 const Form = () => {
     const { darkMode } = useContext(DarkContext);
     const { user, setUser } = useContext(UserContext);
@@ -50,7 +53,7 @@ const Form = () => {
 
             // Fetch the courses via substring search of the search term
             try {
-                const response = await fetch(`http://localhost:5000/api/courses/search?title=${searchTerm}`);
+                const response = await fetch(`${localURL}api/courses/search?title=${searchTerm}`);
                 const data = await response.json();
 
                 const filteredTerm = data.filter(course => course.term.toLowerCase().includes(selectedTerm.toLowerCase()));

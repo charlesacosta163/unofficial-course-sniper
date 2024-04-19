@@ -24,7 +24,7 @@ const ForgotPassword = () => {
 
         <div className="w-full"><button className={`${buttonStyled} text-[1rem] bg-primary text-light mt-2 duration-300 hover:bg-bgDarkPrimary hover:rounded-[20px]`}>Recover</button></div>
 
-        <div className="underline"><Link to='/login'>Return to login page</Link></div>
+        <div className="underline"><Link to='/'>Return to login page</Link></div>
 
       </div>
 

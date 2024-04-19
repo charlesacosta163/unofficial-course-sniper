@@ -5,6 +5,9 @@ import FormField from "../Items/FormField"
 import { DarkContext } from '../App'
 import { useContext, useEffect, useState } from 'react'
 
+const EXPRESS_URL = import.meta.env.VITE_EXPRESS_URL
+const localURL = 'http://localhost:5000/'
+
 const CreateAcc = () => {
   const { darkMode } = useContext(DarkContext)
 
@@ -24,7 +27,7 @@ const CreateAcc = () => {
     try {
 
         // Fetch to attempt post request of creating a new account
-        const response = await fetch('http://localhost:5000/api/students', {
+        const response = await fetch(`${localURL}api/students`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -102,7 +105,7 @@ const CreateAcc = () => {
         <div className="w-full"><button className={`${buttonStyled} text-[1rem] bg-primary text-light mt-2 duration-300 hover:bg-bgDarkPrimary hover:rounded-[20px]`} 
         onClick={handleCreateAccount}>Create Account</button></div>
 
-        <div className="underline"><Link to='/login'>Return to login page</Link></div>
+        <div className="underline"><Link to='/'>Return to login page</Link></div>
 
       </div>
 
