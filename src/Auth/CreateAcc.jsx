@@ -45,7 +45,7 @@ const CreateAcc = () => {
 
         if (response.ok && isMatch) {
             console.log('Account created successfully');
-            navigate('/login'); // Navigate to login page when account creation is successful
+            navigate('/'); // Navigate to login page when account creation is successful
         } else {
             console.log(data);
             const errMessages = data.errors.map((e, i) => {
