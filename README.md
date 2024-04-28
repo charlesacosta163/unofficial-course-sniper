@@ -61,8 +61,9 @@ Before getting started, make sure you have [**Node.js**](https://nodejs.org/en) 
 Begin by **forking this repository** to your GitHub account.
 
 ### Commands
-1. `npm run dev`: This command starts the client-side server for the React application.
-2. `npm run backend`: Use this command to run the Express.js backend server.
+1. `npm install`: Install all dependencies of the project.
+2. `npm run dev`: This command starts the client-side server for the React application.
+3. `npm run backend`: Use this command to run the Express.js backend server.
 
 ### Accessing the Application
 Once the servers are running, you can access the application in your web browser. The client-side server typically runs on localhost, while the Express.js backend may run on a different port (check code).
