@@ -22,7 +22,7 @@ const Form = () => {
     const [displayMore, setDisplayMore] = useState(6)
 
     // Define handleAddEntry function
-    const handleAddEntry = (sectionName, professor, id, title, startDate, seats) => {
+    const handleAddEntry = async (sectionName, professor, id, title, startDate, seats, status, term) => {
         const [name, section, number] = sectionName.split('-');
         console.log(user.studentId);
 
@@ -35,11 +35,34 @@ const Form = () => {
             professor: professor === " " ? "TBA" : professor,
             courseName: title,
             startDate: startDate,
-            availableSeats: seats
+            availableSeats: seats,
+            status: status,
+            term: term
         };
-
+        
         setClasses([...classes, newEntry])
-        setNotifications([...notifications, <span>You sniped the course <span className="font-bold">{sectionName}</span></span>])
+        setNotifications([...notifications, <span>You sniped the course <span className="font-bold">{sectionName}</span>. Check your email for details.</span>])
+
+        // UNCOMMENT TO ALLOW SENDING EMAILS (Limited to 100/day only)
+
+        /*
+        await fetch(`${localURL}api/courses`, {
+            method: "POST",
+            credentials: 'include', // Set cookies
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                sectionName: sectionName,
+                term: term,
+                availableSeats: seats,
+                status: status
+            })
+        })
+    
+        const rsvp = await fetch(`${localURL}api/students/status`)
+        const data = await rsvp.json()
+        */
     }
 
 
@@ -71,6 +94,7 @@ const Form = () => {
                         term={course.term}
                         faculty={course.faculty}
                         handleAddEntry={handleAddEntry}
+                        status= {course.status}
                     />
                 ));
 
@@ -93,7 +117,7 @@ const Form = () => {
     return (
         <section id="form-section" className={`${sectionWidth} h-auto flex flex-col items-center`}>
 
-            <div id="form-container" className={`max-w-[738px] w-full p-8 z-[.2] rounded-[20px] ${darkMode ? "bg-green" : "bg-primary"}`}>
+            <div id="form-container" className={`max-w-[800px] w-full p-8 z-[.2] rounded-[20px] ${darkMode ? "bg-green" : "bg-primary"}`}>
 
                 <div className="flex justify-between items-center pb-4">
                     <Link to="/">
@@ -109,7 +133,7 @@ const Form = () => {
                         <input type="text" value={searchTerm} placeholder="e.g accounting/math" className={`${formStyled} rounded outline-none`} onChange={e => setSearchTerm(e.target.value)} required />
                     </div>
 
-                    <div className="text-dark flex-1 flex flex-col w-full">
+                    <div className="text-dark flex-1 flex flex-col w-full sm:w-[150px]">
                         <label htmlFor="term" className="block text-xs font-[500] mb-2 text-light">Term</label>
                         <select name="terms" value={selectedTerm} id="" onChange={e => setSelectedTerm(e.target.value)} className="rounded">
                             <option value="fall">Fall 2024</option>
@@ -123,7 +147,12 @@ const Form = () => {
 
             </div>
 
-            <div id="classes-container" className={`grid ${loading ? 'grid-cols-1' : 'grid-cols-2'} md:grid-cols-1 gap-4 max-w-[800px] w-full p-8 mt-4 sm:p-2 z-[.2] rounded ${darkMode ? "bg-[#F8F8FF]" : " text-fontDarkMode"}`}>
+            <div className="flex gap-2 items-center py-4">
+                <div className={`w-[15px] h-[15px] rounded-full ${darkMode == false && 'bg-[#ff5d52]'} bg-[#ffaea8]`}></div>
+                <span className={`font-bold text-dark ${darkMode == false && 'text-light'}`}>- Snipe Listed</span>
+            </div>
+
+            <div id="classes-container" className={`grid ${loading ? 'grid-cols-1' : 'grid-cols-2'} md:grid-cols-1 gap-4 max-w-[832px] w-full p-4 mt-4 sm:p-2 z-[.2] rounded ${darkMode ? "bg-[#F8F8FF]" : " text-fontDarkMode"}`}>
                 {loading ? (
                     // Render loading spinner if loading is true
                     <div className="w-full flex justify-center items-center">

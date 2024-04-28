@@ -3,6 +3,7 @@ import { UserContext, DarkContext, ArrayContext, NotifsContext } from "../App";
 import { useContext, useEffect, useState } from "react";
 import { HiXMark } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
+import { comparePassword } from "../Server/routes/helpers.js";
 
 const EXPRESS_URL = import.meta.env.VITE_EXPRESS_URL
 const localURL = 'http://localhost:5000/'
@@ -42,9 +43,8 @@ const Profile = () => {
 
     async function handleDeleteAccount() {
         try {
-            if (password === user.password) {
+            if (comparePassword(password, user.password)) {
 
-                // Implementation (not working)
                 const response = await fetch(`${localURL}api/students/${user.studentId}`, {
                     method: "DELETE"
                 })

@@ -26,6 +26,7 @@ const Login = () => {
     try {
       const response = await fetch(`${localURL}api/students/login`, {
         method: "POST",
+        credentials: 'include', // Don't forget to specify this if you need cookies
         headers: {
           "Content-Type": "application/json"
         },

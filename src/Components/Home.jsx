@@ -25,7 +25,7 @@ const Home = () => {
 
                 <div id='card' className={`${darkMode ? "bg-light" : "bg-bgDarkSecondary text-fontDarkMode"} w-[300px] rounded-[20px] rounded-b-[8px] shadow hover:shadow-2xl hover:translate-y-[-0.5rem] hover:rotate-[-1deg] group`}>
 
-                    <img src="https://images.unsplash.com/photo-1460518451285-97b6aa326961?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" className={`rounded-t-[20px] rounded-br-[150px] duration-200 group-hover:rounded-br-none w-full h-[200px]`} />
+                    <img src="https://st2.depositphotos.com/1385248/5185/i/450/depositphotos_51859279-stock-photo-happy-college-students.jpg" alt="" className={`rounded-t-[20px] rounded-br-[150px] duration-200 group-hover:rounded-br-none w-full h-[200px] ${darkMode ? "border-b-8 border-dark": "border-b-8 border-light"}`} />
 
                     <div id="description" className='p-4 flex flex-col gap-4'>
                         <div className="flex items-center gap-4 self-center group-hover:underline">
@@ -44,7 +44,7 @@ const Home = () => {
 
                 <div id='card' className={`${darkMode ? "bg-light" : "bg-bgDarkSecondary text-fontDarkMode"} w-[300px] rounded-[20px] rounded-b-[8px] shadow hover:shadow-2xl hover:translate-y-[-.5rem] hover:rotate-[1deg] group`}>
 
-                    <img src="https://middlesexcollege.edu/wp-content/uploads/2022/04/community-college-month.jpg" alt="" className={`rounded-t-[20px] rounded-br-[150px] duration-200 group-hover:rounded-br-none w-full h-[200px]`} />
+                    <img src="https://middlesexcollege.edu/wp-content/uploads/2022/04/community-college-month.jpg" alt="" className={`rounded-t-[20px] rounded-br-[150px] duration-200 group-hover:rounded-br-none w-full h-[200px] ${darkMode ? "border-b-8 border-dark": "border-b-8 border-light"}`} />
 
                     <div id="description" className={`p-4 flex flex-col gap-4`}>
                         <div className="flex items-center gap-4 self-center group-hover:underline">

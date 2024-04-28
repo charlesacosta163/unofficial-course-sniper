@@ -27,7 +27,7 @@ const app = express();
 
 
 // Enable CORS
-app.use(cors());
+app.use(cors({origin: "http://localhost:5173", credentials: true}));
 app.use(cookieParser("sucky"))
 app.use(session({
     secret: "suckysucky",
@@ -35,7 +35,7 @@ app.use(session({
     resave: false,
     cookie: {
         maxAge: 60000 * 60
-    }
+    },
 }))
 
 

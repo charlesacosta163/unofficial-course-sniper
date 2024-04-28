@@ -1,5 +1,6 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
+import { comparePassword } from "../routes/helpers.js";
 
 const API_URL = process.env.API_URL;
 const localURL = 'http://localhost:5000/'
@@ -23,7 +24,7 @@ async function authUser(username, password, done) {
             throw new Error("User not found");
         }
 
-        if (findUser.password !== password) {
+        if (!comparePassword(password, findUser.password)) {
             throw new Error("Invalid password");
         }
 

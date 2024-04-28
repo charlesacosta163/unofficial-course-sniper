@@ -4,7 +4,7 @@ import { validationResult } from 'express-validator'
 import passport from 'passport'
 import dotenv from 'dotenv'
 import cors from 'cors';
-
+import { hashPassword } from './helpers.js'
 
 dotenv.config()
 
@@ -13,7 +13,7 @@ const localURL = 'http://localhost:5000/'
 
 // Students Controller  
 const router = Router()
-router.use(cors())
+router.use(cors({origin: "http://localhost:5173"}))
 
 // Fetch all users (WORKING)
 router.get("/api/students", async (req, res) => {
@@ -27,6 +27,9 @@ router.get("/api/students", async (req, res) => {
 })
 
 router.post("/api/students/login", passport.authenticate("local"), function (req, res) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    
     if (req.user) {
         res.json({ msg: "Auth success", user: req.user })
     }
@@ -100,6 +103,9 @@ router.post("/api/students", [
             return res.status(400).json({msg: "Account creation failed", errors: errors.array()})
 
         const { body } = req
+
+        body.password = hashPassword(body.password)
+        
         // Make HTTP request to save student data
         const response = await fetch(`${API_URL}api/students`, {
             method: "POST",
@@ -128,7 +134,7 @@ router.post("/api/students", [
 
 })
 
-// DELETE account in Profile.jsx (NOT WORKING)
+// DELETE account in Profile.jsx (WORKING)
 router.delete('/api/students/:id', async (req, res) => {
     try {
         const { id } = req.params
