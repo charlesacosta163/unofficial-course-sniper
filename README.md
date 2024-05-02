@@ -68,5 +68,5 @@ Begin by **forking this repository** to your GitHub account.
 ### Accessing the Application
 Once the servers are running, you can access the application in your web browser. The client-side server typically runs on localhost, while the Express.js backend may run on a different port (check code).
 
-** Live Demo **: https://662eca7752d90f1ec0907696--mcc-testsnipe.netlify.app/
+**Live Demo**: https://662eca7752d90f1ec0907696--mcc-testsnipe.netlify.app/
 
